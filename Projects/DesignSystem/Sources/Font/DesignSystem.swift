@@ -7,24 +7,24 @@
 
 import UIKit
 
-enum Font {
-    enum Name: String {
+public enum Font {
+    public enum Name: String {
         case system
     }
 
-    enum Size: CGFloat {
+    public enum Size: CGFloat {
         case _10 = 10
         case _34 = 34
     }
 
-    enum Weight: String {
+    public enum Weight: String {
         case heavy = "Heavy"
         case bold = "Bold"
         case medium = "Medium"
         case regular = "Regular"
         case light = "Light"
 
-        var real: UIFont.Weight {
+        public var real: UIFont.Weight {
             switch self {
             case .heavy:
                 return .heavy
