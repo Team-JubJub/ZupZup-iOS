@@ -25,7 +25,6 @@ class CartView: BaseViewController {
     }()
 
     private var helloBox: UIView = {
-
         let view = UIView()
         view.backgroundColor = .blue
         view.frame = CGRect(x: 0, y: 0, width: DeviceInfo.screenWidth, height: DeviceInfo.screenHeight * 3)
