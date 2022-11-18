@@ -10,8 +10,12 @@ import UIKit
 import SnapKit
 import DesignSystem
 
-class CartView: BaseViewController {
+class CartViewController: BaseViewController {
+    
+    private var viewModel: HomeViewModel?
 
+    weak var coordinator: Coordinator?
+    
     private var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .red

@@ -8,12 +8,11 @@
 
 import Foundation
 
+// MARK: 사용자
 public struct Customer {
-    let name: String
-    let phoneNumber: String
-
-    public init(name: String, phoneNumber: String) {
-        self.name = name
-        self.phoneNumber = phoneNumber
+    let userID: Int
+    
+    public init(userID: Int) {
+        self.userID = userID
     }
 }

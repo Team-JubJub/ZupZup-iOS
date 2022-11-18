@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: 예약
 public enum reservationState {
     case New
     case Cancel
@@ -16,26 +17,12 @@ public enum reservationState {
 }
 
 public struct Reservation {
-
-    let reservationId: Int
+    let resId: Int
     let storeId: Int
-    var state: reservationState
+    let userId: Int
+    let reservationTime: String
+    let sales: String
     let cartList: [Cart]
     let visitTime: String
-    let customer: Customer
-
-    public init(reservationId: Int,
-                storeId: Int,
-                state: reservationState,
-                cartList: [Cart],
-                visitTime: String,
-                customer: Customer
-    ) {
-        self.reservationId = reservationId
-        self.storeId = storeId
-        self.state = state
-        self.cartList = cartList
-        self.visitTime = visitTime
-        self.customer = customer
-    }
+    let state: reservationState
 }

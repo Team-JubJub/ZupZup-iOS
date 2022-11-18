@@ -14,8 +14,13 @@ import DesignSystem
 class HomeViewController: BaseViewController {
 
     private var viewModel: HomeViewModel?
+    
+    weak var coordinator: Coordinator?
 
+    // MARK: 왼쪽 상단 타이틀 라벨
     let titleLabel = ZupzupTitleLabel(title: "가게")
+    
+    // MARK: 화면 중앙 테이블 뷰
     let storeTableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .systemPink
@@ -23,6 +28,7 @@ class HomeViewController: BaseViewController {
         return tableView
     }()
 
+    // MARK: Life_Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(titleLabel)
@@ -32,15 +38,15 @@ class HomeViewController: BaseViewController {
     }
 }
 
-//extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        <#code#>
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        <#code#>
-//    }
-//}
+extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        <#code#>
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        <#code#>
+    }
+}
 
 extension HomeViewController {
     private func layoutTitleLabel() {

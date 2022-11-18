@@ -23,4 +23,3 @@ class BaseView: UIView, CodeBased {
 
     func setAttribute() {}
 }
-

@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+class ReservationViewController: BaseViewController {
+    
+    private var viewModel: HomeViewModel?
+
+    weak var coordinator: Coordinator?
+
+}

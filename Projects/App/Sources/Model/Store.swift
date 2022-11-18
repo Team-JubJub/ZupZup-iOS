@@ -8,23 +8,30 @@
 
 import Foundation
 
+// MARK: 매장
 public struct Store {
     let id: Int
-    let headerInfo: HeaderInfo
     let address: String
     let eventList: [String]
-    let merchandiseList: [Merchandise]
-
+    let merchandiseList: [Item]
+    let name: String
+    let openTime: String
+    let event: String
+    
     public init(id: Int,
-                headerInfo: HeaderInfo,
                 address: String,
                 eventList: [String],
-                merchandiseList: [Merchandise]
-    ) {
+                merchandiseList: [Item],
+                name: String,
+                openTime: String,
+                event: String)
+    {
         self.id = id
-        self.headerInfo = headerInfo
         self.address = address
         self.eventList = eventList
         self.merchandiseList = merchandiseList
+        self.name = name
+        self.openTime = openTime
+        self.event = event
     }
 }

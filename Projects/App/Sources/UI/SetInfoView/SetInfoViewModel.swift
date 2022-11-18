@@ -6,4 +6,13 @@
 //  Copyright © 2022 ZupZup. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+final class SetInfoViewModel {
+
+}
+
+#if DEBUG
+
+#endif
+

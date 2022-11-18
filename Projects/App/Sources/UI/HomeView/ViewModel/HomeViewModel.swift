@@ -10,11 +10,10 @@ import UIKit
 
 final class HomeViewModel {
 
-    var stores = [Store]()
-
-    private func fetchStores(){
-
-    }
+    var 
+    
+    
+    
 }
 
 #if DEBUG

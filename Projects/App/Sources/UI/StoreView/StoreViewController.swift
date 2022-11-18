@@ -6,5 +6,13 @@
 //  Copyright © 2022 ZupZup. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class StoreViewController: BaseViewController {
+    
+    private var viewModel: StoreViewModel?
+
+    weak var coordinator: Coordinator?
+
+}
 
