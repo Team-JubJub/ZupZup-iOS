@@ -10,10 +10,10 @@ import UIKit
 
 final class HomeViewModel {
     
-    var stores: [Store]
+    var stores = [Store]()
     
-    init(stores: [Store]) {
-        self.stores = stores
+    init() {
+        fetchData()
     }
 }
 
