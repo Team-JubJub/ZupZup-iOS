@@ -1,5 +1,5 @@
 //
-//  DesignSystem.swift
+//  Font.swift
 //  ProjectDescriptionHelpers
 //
 //  Created by YeongJin Jeong on 2022/11/04.
@@ -14,6 +14,8 @@ public enum Font {
 
     public enum Size: CGFloat {
         case _10 = 10
+        case _13 = 13
+        case _17 = 17
         case _34 = 34
     }
 
