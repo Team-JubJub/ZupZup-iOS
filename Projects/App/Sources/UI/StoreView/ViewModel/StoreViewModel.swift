@@ -10,7 +10,11 @@ import UIKit
 
 final class StoreViewModel {
 
-
+    var coordinator: Coordinator
+    
+    init(coordinator: Coordinator) {
+        self.coordinator = coordinator
+    }
 }
 
 #if DEBUG
