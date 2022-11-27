@@ -14,8 +14,6 @@ import DesignSystem
 class HomeViewController: BaseViewController {
 
     private var viewModel: HomeViewModel
-    
-    weak var coordinator: Coordinator?
 
     // MARK: 왼쪽 상단 타이틀 라벨
     let titleLabel = ZupzupTitleLabel(title: "가게")
@@ -40,7 +38,6 @@ class HomeViewController: BaseViewController {
     init(viewModel: HomeViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        print(viewModel.stores.count)
     }
     
     required init?(coder: NSCoder) {
@@ -68,10 +65,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StoreCollectionViewCell.cellId, for: indexPath) as? StoreCollectionViewCell else { return UICollectionViewCell() }
         
+        cell.nextButton.addTarget(self, action: #selector(tapNextButton), for: .touchUpInside)
+        
         return cell
     }
-    
-    
 }
 
 
@@ -89,5 +86,10 @@ extension HomeViewController {
             make.centerX.equalToSuperview()
             make.top.equalTo(titleLabel.snp.bottom).offset(DeviceInfo.screenHeight * 0.08323424495)
         }
+    }
+    
+    @objc
+    func tapNextButton() {
+        viewModel.pushStoreViewController()
     }
 }

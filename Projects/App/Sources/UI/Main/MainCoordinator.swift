@@ -9,17 +9,16 @@
 import UIKit
 
 final class MainCoordinator: Coordinator {
+    
     var navigationController: UINavigationController
-    var childCoordinators = [Coordinator]()
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
     func start() {
-        let viewModel = HomeViewModel() 
+        let viewModel = HomeViewModel(coordinator: self)
         let viewController = HomeViewController(viewModel: viewModel)
-        viewController.coordinator = self
         navigationController.pushViewController(viewController, animated: true)
     }
 }

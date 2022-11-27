@@ -10,9 +10,12 @@ import UIKit
 
 final class HomeViewModel {
     
+    var coordinator: Coordinator
+    
     var stores = [Store]()
     
-    init() {
+    init(coordinator: Coordinator) {
+        self.coordinator = coordinator
         fetchData()
     }
 }
@@ -36,5 +39,12 @@ extension HomeViewModel {
         for _ in 0...3 {
             self.stores.append(store)
         }
+    }
+}
+
+extension HomeViewModel {
+    func pushStoreViewController() {
+        guard let coordinator = coordinator as? StoreViewCoordinating else { return }
+        coordinator.pushStoreViewController()
     }
 }

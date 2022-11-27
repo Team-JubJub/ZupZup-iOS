@@ -10,9 +10,6 @@ import UIKit
 
 final class HomeViewCoordinator: Coordinator {
     
-    weak var parentCoordinator: Coordinator?
-    
-    var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     
     init(navigationController: UINavigationController) {
@@ -20,10 +17,17 @@ final class HomeViewCoordinator: Coordinator {
     }
     
     func start() {
-        let viewModel = HomeViewModel()
+        let viewModel = HomeViewModel(coordinator: self)
         let viewController = HomeViewController(viewModel: viewModel)
-        viewController.coordinator = self
         navigationController.pushViewController(viewController, animated: true)
     }
 }
 
+// MARK: StoreViewController로 전환
+extension HomeViewCoordinator: StoreViewCoordinating {
+    func pushStoreViewController() {
+        let viewModel = StoreViewModel(coordinator: self)
+        let viewController = StoreViewController(viewModel: viewModel)
+        navigationController.pushViewController(viewController, animated: true)
+    }
+}
