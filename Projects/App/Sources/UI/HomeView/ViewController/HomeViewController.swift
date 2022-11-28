@@ -45,6 +45,11 @@ class HomeViewController: BaseViewController {
     }
     
     // MARK: Life_Cycle
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(titleLabel)
@@ -53,6 +58,11 @@ class HomeViewController: BaseViewController {
         storeCollectionView.dataSource = self
         layoutTitleLabel()
         layoutstoreTableView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.isNavigationBarHidden = false
     }
 }
 

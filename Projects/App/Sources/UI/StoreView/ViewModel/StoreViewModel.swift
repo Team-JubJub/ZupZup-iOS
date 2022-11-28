@@ -12,12 +12,25 @@ final class StoreViewModel {
 
     var coordinator: Coordinator
     
+    var items = [Item]()
+    
     init(coordinator: Coordinator) {
         self.coordinator = coordinator
+        fetchData()
     }
 }
 
-#if DEBUG
-
-#endif
+extension StoreViewModel {
+    private func fetchData() {
+        let item = Item(itemId: 1,
+                        storeId: 1,
+                        itemName: "영진 라떼",
+                        price: 2000,
+                        discounted: 4000)
+        
+        for _ in 0...4 {
+            items.append(item)
+        }
+    }
+}
 
