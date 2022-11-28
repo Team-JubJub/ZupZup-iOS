@@ -38,7 +38,7 @@ class StoreCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let nextButton: UIButton = {
+    let nextButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "arrow.right"), for: .normal)
         button.tintColor = .designSystem(.greyAFA08A)

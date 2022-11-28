@@ -14,14 +14,18 @@ public enum Font {
 
     public enum Size: CGFloat {
         case _10 = 10
+        case _12 = 12
         case _13 = 13
+        case _15 = 15
         case _17 = 17
+        case _20 = 20
         case _34 = 34
     }
 
     public enum Weight: String {
         case heavy = "Heavy"
         case bold = "Bold"
+        case semiBold = "semiBold"
         case medium = "Medium"
         case regular = "Regular"
         case light = "Light"
@@ -33,6 +37,9 @@ public enum Font {
 
             case .bold:
                 return .bold
+                
+            case .semiBold:
+                return .semibold
 
             case .medium:
                 return .medium
