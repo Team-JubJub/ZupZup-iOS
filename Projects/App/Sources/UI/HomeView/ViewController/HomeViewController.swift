@@ -47,6 +47,7 @@ class HomeViewController: BaseViewController {
     // MARK: Life_Cycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.topItem?.title = "가게"
         self.navigationController?.isNavigationBarHidden = true
     }
     

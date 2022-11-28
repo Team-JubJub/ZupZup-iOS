@@ -99,7 +99,6 @@ class StoreViewController: BaseViewController {
     // MARK: LIFE - Cycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.topItem?.title = "가게"
         self.navigationController?.navigationBar.tintColor = .designSystem(.orangeE49318)
     }
     
