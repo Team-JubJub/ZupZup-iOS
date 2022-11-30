@@ -34,3 +34,10 @@ extension StoreViewModel {
     }
 }
 
+extension StoreViewModel {
+    func pushReservationViewController() {
+        guard let coordinator = coordinator as? ReservationViewCoordinating else { return }
+        coordinator.pushReservationViewController()
+    }
+}
+

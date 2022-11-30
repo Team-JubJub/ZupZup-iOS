@@ -204,5 +204,6 @@ extension StoreViewController {
         // TODO: print문 삭제 예정
         print("didReservationButtonTapped")
         reservationButton.isButtonSelected.toggle()
+        viewModel.pushReservationViewController()
     }
 }

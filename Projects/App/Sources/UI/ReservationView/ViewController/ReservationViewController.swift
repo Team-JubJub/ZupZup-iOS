@@ -10,10 +10,10 @@ import Foundation
 
 class ReservationViewController: BaseViewController {
     
-    private var viewModel: HomeViewModel
+    private var viewModel: ReservationViewModel
     
     // MARK: Initializer
-    init(viewModel: HomeViewModel) {
+    init(viewModel: ReservationViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
