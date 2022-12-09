@@ -67,6 +67,8 @@ class ReservationViewController: BaseViewController {
         return tableView
     }()
     
+    private let reservationCompleteButton = ZupzupButton(title: "예약 완료하기")
+    
     // MARK: Initializer
     init(viewModel: ReservationViewModel) {
         self.viewModel = viewModel
@@ -81,6 +83,7 @@ class ReservationViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
+        setReservationCompleteButtonTarget()
     }
 }
 
@@ -106,6 +109,7 @@ extension ReservationViewController {
         view.addSubview(titleLabel)
         view.addSubview(storeInformationView)
         view.addSubview(scrollView)
+        view.addSubview(reservationCompleteButton)
         
         shoppingItemStackView.addArrangedSubview(shoppingItemView)
         shoppingItemStackView.addArrangedSubview(itemListTableView)
@@ -134,10 +138,9 @@ extension ReservationViewController {
         }
         
         scrollView.snp.makeConstraints { make in
-            make.width.equalTo(DeviceInfo.screenWidth)
-            make.height.equalTo(DeviceInfo.screenHeight * 592 / 844)
+            make.left.right.equalToSuperview()
             make.top.equalTo(storeInformationView.snp.bottom).offset(DeviceInfo.screenHeight * 24 / 844)
-            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().inset(DeviceInfo.screenHeight * 120 / 844)
         }
         
         // superView == scrollView
@@ -173,5 +176,22 @@ extension ReservationViewController {
             make.width.equalTo(DeviceInfo.screenWidth * 358 / 390)
             make.height.equalTo(DeviceInfo.screenHeight * 64 / 844)
         }
+        
+        reservationCompleteButton.snp.makeConstraints { make in
+            make.width.equalTo(DeviceInfo.screenWidth * 358 / 390)
+            make.height.equalTo(DeviceInfo.screenHeight * 57 / 844)
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().inset(DeviceInfo.verticalPadding * 2)
+        }
+    }
+    
+    private func setReservationCompleteButtonTarget() {
+        reservationCompleteButton.addTarget(self, action: #selector(didReservationCompleteButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc
+    func didReservationCompleteButtonTapped() {
+        print("didReservationCompleteButtonTapped")
+        reservationCompleteButton.isButtonSelected.toggle()
     }
 }
