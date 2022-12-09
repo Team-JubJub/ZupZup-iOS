@@ -9,10 +9,17 @@
 import UIKit
 
 final class SetInfoViewModel {
-
+    
+    var coordinator: Coordinator
+    
+    init(coordinator: Coordinator) {
+        self.coordinator = coordinator
+    }
 }
 
-#if DEBUG
-
-#endif
-
+extension SetInfoViewModel {
+    func dismissViewController() {
+        guard let coordinator = coordinator as? Dismissable else { return }
+        coordinator.dismissViewController()
+    }
+}

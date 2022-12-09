@@ -8,6 +8,14 @@
 
 import UIKit
 
+protocol Popable {
+    func popViewController()
+}
+
+protocol Dismissable {
+    func dismissViewController()
+}
+
 final class HomeViewCoordinator: Coordinator {
     
     var navigationController: UINavigationController
@@ -44,7 +52,7 @@ extension HomeViewCoordinator: ReservationViewCoordinating {
 // MARK: SetInfoViewController Present
 extension HomeViewCoordinator: SetInfoViewCoordinating {
     func presentSetTimeView() {
-        let viewModel = SetInfoViewModel()
+        let viewModel = SetInfoViewModel(coordinator: self)
         let viewController = SetInfoViewController(viewModel: viewModel)
         
         viewController.modalPresentationStyle = .pageSheet
@@ -52,5 +60,17 @@ extension HomeViewCoordinator: SetInfoViewCoordinating {
             sheet.detents = [.medium()]
         }
         navigationController.present(viewController, animated: true)
+    }
+}
+
+extension HomeViewCoordinator: Popable {
+    func popViewController() {
+        navigationController.popViewController(animated: true)
+    }
+}
+
+extension HomeViewCoordinator: Dismissable {
+    func dismissViewController() {
+        navigationController.dismiss(animated: true)
     }
 }
