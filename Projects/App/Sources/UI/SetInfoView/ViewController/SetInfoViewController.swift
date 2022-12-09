@@ -12,6 +12,8 @@ class SetInfoViewController: BaseViewController {
     
     private var viewModel: SetInfoViewModel
     
+    private let titleLabel = ZupzupSubTitleLabel(title: "방문 예정 시간")
+    
     private let dismissButton: ZupzupDismissButton = {
         let button = ZupzupDismissButton()
         button.layer.cornerRadius = DeviceInfo.screenWidth * 30 / 390 / 2
@@ -20,13 +22,15 @@ class SetInfoViewController: BaseViewController {
     
     private let setTimeButton = ZupzupButton(title: "시간 정하기")
     
+    private let datePicker = UIDatePicker()
+    
     // MARK: Initializer
     init(viewModel: SetInfoViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        view.backgroundColor = .white
+        setBackground()
         setUI()
-
+        setButtonTarget()
     }
     
     required init?(coder: NSCoder) {
@@ -35,9 +39,14 @@ class SetInfoViewController: BaseViewController {
 }
 
 extension SetInfoViewController {
+    private func setBackground() {
+        view.backgroundColor = .white
+    }
+    
     private func setUI() {
         view.addSubview(dismissButton)
         view.addSubview(setTimeButton)
+        view.addSubview(titleLabel)
         
         dismissButton.snp.makeConstraints { make in
             make.width.height.equalTo(DeviceInfo.screenWidth * 30 / 390)
@@ -51,5 +60,25 @@ extension SetInfoViewController {
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().inset(DeviceInfo.screenHeight * 34 / 844)
         }
+        
+        titleLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().inset(DeviceInfo.verticalPadding)
+        }
+    }
+    
+    private func setButtonTarget() {
+        dismissButton.addTarget(self, action: #selector(tapDismissButton), for: .touchUpInside)
+        setTimeButton.addTarget(self, action: #selector(tapSetTimeButton), for: .touchUpInside)
+    }
+    
+    @objc
+    func tapDismissButton() {
+        viewModel.dismissViewController()
+    }
+    
+    @objc
+    func tapSetTimeButton() {
+        
     }
 }
