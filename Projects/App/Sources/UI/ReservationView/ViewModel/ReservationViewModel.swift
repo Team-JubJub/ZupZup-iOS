@@ -20,3 +20,9 @@ final class ReservationViewModel {
     }
 }
 
+extension ReservationViewModel {
+    func presentSetTimeView() {
+        guard let coordinator = coordinator as? SetInfoViewCoordinating else { return }
+        coordinator.presentSetTimeView()
+    }
+}

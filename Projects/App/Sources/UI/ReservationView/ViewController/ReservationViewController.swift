@@ -193,5 +193,6 @@ extension ReservationViewController {
     func didReservationCompleteButtonTapped() {
         print("didReservationCompleteButtonTapped")
         reservationCompleteButton.isButtonSelected.toggle()
+        viewModel.presentSetTimeView()
     }
 }

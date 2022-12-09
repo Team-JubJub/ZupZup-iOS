@@ -1,5 +1,5 @@
 //
-//  SetTimeViewController.swift
+//  SetInfoViewController.swift
 //  App
 //
 //  Created by YeongJin Jeong on 2022/11/09.
@@ -8,15 +8,15 @@
 
 import UIKit
 
-class SetTimeViewController: BaseViewController {
+class SetInfoViewController: BaseViewController {
     
-    private var viewModel: SetTimeViewModel
+    private var viewModel: SetInfoViewModel
     
     // MARK: Initializer
-    init(viewModel: SetTimeViewModel) {
+    init(viewModel: SetInfoViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        view.backgroundColor = .red
+        view.backgroundColor = .white
     }
     
     required init?(coder: NSCoder) {

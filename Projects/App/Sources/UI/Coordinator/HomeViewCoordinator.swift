@@ -41,3 +41,16 @@ extension HomeViewCoordinator: ReservationViewCoordinating {
     }
 }
 
+// MARK: SetInfoViewController Present
+extension HomeViewCoordinator: SetInfoViewCoordinating {
+    func presentSetTimeView() {
+        let viewModel = SetInfoViewModel()
+        let viewController = SetInfoViewController(viewModel: viewModel)
+        
+        viewController.modalPresentationStyle = .pageSheet
+        if let sheet = viewController.sheetPresentationController {
+            sheet.detents = [.medium()]
+        }
+        navigationController.present(viewController, animated: true)
+    }
+}
