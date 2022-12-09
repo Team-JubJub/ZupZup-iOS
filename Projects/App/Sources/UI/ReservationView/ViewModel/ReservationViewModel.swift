@@ -12,7 +12,10 @@ final class ReservationViewModel {
 
     var coordinator: Coordinator
     
-    init(coordinator: Coordinator) {
+    var items = [Item]()
+    
+    init(coordinator: Coordinator, items: [Item]) {
+        self.items = items
         self.coordinator = coordinator
     }
 }
