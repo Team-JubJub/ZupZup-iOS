@@ -50,15 +50,25 @@ extension HomeViewCoordinator: ReservationViewCoordinating {
 }
 
 // MARK: SetInfoViewController Present
-extension HomeViewCoordinator: SetInfoViewCoordinating {
+extension HomeViewCoordinator: SetTimeViewCoordinating {
     func presentSetTimeView() {
-        let viewModel = SetInfoViewModel(coordinator: self)
-        let viewController = SetInfoViewController(viewModel: viewModel)
+        let viewModel = SetTimeViewModel(coordinator: self)
+        let viewController = SetTimeViewController(viewModel: viewModel)
         
         viewController.modalPresentationStyle = .pageSheet
         if let sheet = viewController.sheetPresentationController {
             sheet.detents = [.medium()]
         }
+        navigationController.present(viewController, animated: true)
+    }
+}
+
+extension HomeViewCoordinator: SetInfoViewCoordinating {
+    func presentSetInfoView() {
+        let viewModel = SetInfoViewModel(coordinator: self)
+        let viewController = SetInfoViewController(viewModel: viewModel)
+        
+        viewController.modalPresentationStyle = .fullScreen
         navigationController.present(viewController, animated: true)
     }
 }

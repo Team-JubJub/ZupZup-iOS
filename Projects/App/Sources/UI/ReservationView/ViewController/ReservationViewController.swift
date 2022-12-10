@@ -84,6 +84,7 @@ class ReservationViewController: BaseViewController {
         super.viewDidLoad()
         setUI()
         setReservationCompleteButtonTarget()
+        setTapGesture()
     }
 }
 
@@ -189,10 +190,27 @@ extension ReservationViewController {
         reservationCompleteButton.addTarget(self, action: #selector(didReservationCompleteButtonTapped), for: .touchUpInside)
     }
     
+    private func setTapGesture() {
+        let tapVisitTimeGesture = UITapGestureRecognizer(target: self, action: #selector(tapVisitTimeView))
+        let tapVisitorGesture = UITapGestureRecognizer(target: self, action: #selector(tapVistorView))
+        visitTimeView.addGestureRecognizer(tapVisitTimeGesture)
+        visitorView.addGestureRecognizer(tapVisitorGesture)
+    }
+    
     @objc
     func didReservationCompleteButtonTapped() {
-        print("didReservationCompleteButtonTapped")
         reservationCompleteButton.isButtonSelected.toggle()
+    }
+    
+    @objc
+    func tapVisitTimeView() {
+        print("tapVisitTimeView")
         viewModel.presentSetTimeView()
+    }
+    
+    @objc
+    func tapVistorView() {
+        print("tapVistorView")
+        viewModel.presentSetInfoView()
     }
 }

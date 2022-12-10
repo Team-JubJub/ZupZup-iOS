@@ -9,5 +9,5 @@
 import Foundation
 
 protocol SetInfoViewCoordinating {
-    func presentSetTimeView()
+    func presentSetInfoView()
 }

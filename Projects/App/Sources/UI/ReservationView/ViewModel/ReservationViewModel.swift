@@ -20,9 +20,16 @@ final class ReservationViewModel {
     }
 }
 
+// MARK: Coordinator
 extension ReservationViewModel {
+    // MARK: 시간 설정 화면으로 전환
     func presentSetTimeView() {
-        guard let coordinator = coordinator as? SetInfoViewCoordinating else { return }
+        guard let coordinator = coordinator as? SetTimeViewCoordinating else { return }
         coordinator.presentSetTimeView()
+    }
+    // MARK: 정보 설정 화면으로 전환
+    func presentSetInfoView() {
+        guard let coordinator = coordinator as? SetInfoViewCoordinating else { return }
+        coordinator.presentSetInfoView()
     }
 }

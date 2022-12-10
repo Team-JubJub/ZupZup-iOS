@@ -1,5 +1,5 @@
 //
-//  SetTimeViewModel.swift
+//  SetInfoViewModel.swift
 //  App
 //
 //  Created by YeongJin Jeong on 2022/11/09.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class SetInfoViewModel {
+final class SetTimeViewModel {
     
     var coordinator: Coordinator
     
@@ -17,8 +17,7 @@ final class SetInfoViewModel {
     }
 }
 
-// MARK: dismiss ViewController
-extension SetInfoViewModel {
+extension SetTimeViewModel {
     func dismissViewController() {
         guard let coordinator = coordinator as? Dismissable else { return }
         coordinator.dismissViewController()

@@ -8,11 +8,19 @@
 
 import UIKit
 
-class SetInfoViewController: BaseViewController {
+class SetTimeViewController: BaseViewController {
     
-    private var viewModel: SetInfoViewModel
+    private var viewModel: SetTimeViewModel
     
     private let titleLabel = ZupzupSubTitleLabel(title: "방문 예정 시간")
+    
+    private let timeLabel: UILabel = {
+        let label = UILabel()
+        label.font = .designSystem(weight: .regular, size: ._20)
+        label.textColor = .designSystem(.orangeE49318)
+        label.text = "9:41 AM"
+        return label
+    }()
     
     private let dismissButton: ZupzupDismissButton = {
         let button = ZupzupDismissButton()
@@ -20,12 +28,26 @@ class SetInfoViewController: BaseViewController {
         return button
     }()
     
+    private let horizentalLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .designSystem(.greyC8BCAB)
+        return view
+    }()
+    
     private let setTimeButton = ZupzupButton(title: "시간 정하기")
     
-    private let datePicker = UIDatePicker()
+    private let datePicker: UIDatePicker = {
+        let picker = UIDatePicker()
+        picker.datePickerMode = .time
+        picker.locale = Locale(identifier: "ko-KR")
+        picker.preferredDatePickerStyle = .wheels
+//        picker.setValue(UIColor.designSystem(.orangeE49318), forKey: "textColor")
+        picker.setValue(false, forKey: "highlightsToday")
+        return picker
+    }()
     
     // MARK: Initializer
-    init(viewModel: SetInfoViewModel) {
+    init(viewModel: SetTimeViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         setBackground()
@@ -38,7 +60,7 @@ class SetInfoViewController: BaseViewController {
     }
 }
 
-extension SetInfoViewController {
+extension SetTimeViewController {
     private func setBackground() {
         view.backgroundColor = .white
     }
@@ -47,6 +69,9 @@ extension SetInfoViewController {
         view.addSubview(dismissButton)
         view.addSubview(setTimeButton)
         view.addSubview(titleLabel)
+        view.addSubview(datePicker)
+        view.addSubview(timeLabel)
+        view.addSubview(horizentalLine)
         
         dismissButton.snp.makeConstraints { make in
             make.width.height.equalTo(DeviceInfo.screenWidth * 30 / 390)
@@ -65,6 +90,24 @@ extension SetInfoViewController {
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().inset(DeviceInfo.verticalPadding)
         }
+        
+        datePicker.snp.makeConstraints { make in
+            make.left.right.equalToSuperview().inset(DeviceInfo.horizontalPadding)
+            make.centerX.equalToSuperview()
+            make.top.equalTo(horizentalLine.snp.bottom).offset(DeviceInfo.verticalPadding)
+        }
+        
+        timeLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(titleLabel.snp.bottom).offset(DeviceInfo.screenHeight * 35 / 844)
+        }
+        
+        horizentalLine.snp.makeConstraints { make in
+            make.width.equalTo(DeviceInfo.screenWidth * 358 / 390)
+            make.height.equalTo(1)
+            make.centerX.equalToSuperview()
+            make.top.equalTo(timeLabel.snp.bottom).offset(DeviceInfo.verticalPadding / 2)
+        }
     }
     
     private func setButtonTarget() {
@@ -79,6 +122,6 @@ extension SetInfoViewController {
     
     @objc
     func tapSetTimeButton() {
-        
+        setTimeButton.isButtonSelected.toggle()
     }
 }

@@ -8,12 +8,12 @@
 
 import UIKit
 
-class SetTimeViewController: BaseViewController {
+class SetInfoViewController: BaseViewController {
     
-    private var viewModel: SetTimeViewModel
+    private var viewModel: SetInfoViewModel
     
     // MARK: Initializer
-    init(viewModel: SetTimeViewModel) {
+    init(viewModel: SetInfoViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         view.backgroundColor = .red
@@ -22,7 +22,4 @@ class SetTimeViewController: BaseViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    weak var coordinator: Coordinator?
-
 }
