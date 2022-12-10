@@ -68,7 +68,10 @@ extension HomeViewCoordinator: SetInfoViewCoordinating {
         let viewModel = SetInfoViewModel(coordinator: self)
         let viewController = SetInfoViewController(viewModel: viewModel)
         
-        viewController.modalPresentationStyle = .fullScreen
+        viewController.modalPresentationStyle = .pageSheet
+        if let sheet = viewController.sheetPresentationController {
+            sheet.detents = [.large()]
+        }
         navigationController.present(viewController, animated: true)
     }
 }
