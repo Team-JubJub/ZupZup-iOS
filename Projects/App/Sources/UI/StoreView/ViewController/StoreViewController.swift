@@ -34,7 +34,6 @@ class StoreViewController: BaseViewController {
         let button = ZupzupButton(title: "예약하기")
         button.addTarget(self , action: #selector(didReservationButtonTapped), for: .touchUpInside)
         return button
-        
     }()
     
     private let titleLabel = ZupzupTitleLabel(title: "영진상회")
@@ -204,5 +203,6 @@ extension StoreViewController {
         // TODO: print문 삭제 예정
         print("didReservationButtonTapped")
         reservationButton.isButtonSelected.toggle()
+        viewModel.pushReservationViewController(items: viewModel.items)
     }
 }

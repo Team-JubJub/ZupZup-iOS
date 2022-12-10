@@ -1,18 +1,18 @@
 //
-//  ZupzupTitleButton.swift
+//  ZupzupModalTitleLabel.swift
 //  App
 //
-//  Created by YeongJin Jeong on 2022/11/06.
+//  Created by YeongJin Jeong on 2022/12/09.
 //  Copyright © 2022 ZupZup. All rights reserved.
 //
 import UIKit
 
-class ZupzupTitleLabel: UILabel {
+class ZupzupModalTitleLabel: UILabel {
 
     init(title: String) {
         super.init(frame: .zero)
         self.text = title
-        self.font = UIFont.designSystem(weight: .heavy, size: ._34)
+        self.font = UIFont.designSystem(weight: .semiBold, size: ._17)
         self.textAlignment = .left
     }
 

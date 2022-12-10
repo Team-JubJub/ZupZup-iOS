@@ -9,6 +9,8 @@
 public enum Pallete: String {
     case whiteF5F5F5
     case orangeE49318
+    case greyFFFDFA
+    case greyF1EEE9
     case greyAFA08A
     case greyEAE5DF
     case greyC8BCAB
@@ -22,6 +24,10 @@ public enum Pallete: String {
             return "#F5F5F5FF"
         case .orangeE49318:
             return "#E49318FF"
+        case .greyFFFDFA:
+            return "#FFFDFAFF"
+        case .greyF1EEE9:
+            return "#F1EEE9FF"
         case .greyAFA08A:
             return "#AFA08AFF"
         case .greyEAE5DF:

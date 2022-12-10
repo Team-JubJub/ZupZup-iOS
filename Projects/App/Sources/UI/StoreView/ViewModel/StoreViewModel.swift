@@ -28,9 +28,16 @@ extension StoreViewModel {
                         price: 2000,
                         discounted: 4000)
         
-        for _ in 0...4 {
+        for _ in 0...13 {
             items.append(item)
         }
+    }
+}
+
+extension StoreViewModel {
+    func pushReservationViewController(items: [Item]) {
+        guard let coordinator = coordinator as? ReservationViewCoordinating else { return }
+        coordinator.pushReservationViewController(items: items)
     }
 }
 
