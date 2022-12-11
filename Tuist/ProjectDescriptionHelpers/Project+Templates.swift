@@ -24,7 +24,7 @@ public extension Project {
             name: name,
             platform: platform,
             product: product,
-            bundleId: "\(organizationName).\(name)",
+            bundleId: "com.\(organizationName).\(name)",
             deploymentTarget: deploymentTarget,
             infoPlist: infoPlist,
             sources: sources,
