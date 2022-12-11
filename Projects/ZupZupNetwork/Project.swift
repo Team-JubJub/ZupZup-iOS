@@ -13,6 +13,7 @@ let project = Project.makeModule(
     product: .staticFramework,
     dependencies: [
         .external(name: "Moya"),
-        .external(name: "RxMoya")
+        .external(name: "RxMoya"),
+        .external(name: "FirebaseFirestore")
     ]
 )

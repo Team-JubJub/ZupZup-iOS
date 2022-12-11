@@ -18,7 +18,8 @@ let project = Project.makeModule(
         .external(name: "SnapKit"),
         .external(name: "RxSwift"),
         .external(name: "RxCocoa"),
-        .external(name: "FlexLayout")
+        .external(name: "FlexLayout"),
+        .external(name: "FirebaseFirestore")
     ],
     resources: ["Resources/**"],
     infoPlist: .file(path: "Support/Info.plist")
