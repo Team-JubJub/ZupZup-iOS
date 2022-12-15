@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/macos,xcode,swift
-# Edit at https://www.toptal.com/developers/gitignore?templates=macos,xcode,swift
+# Created by https://www.toptal.com/developers/gitignore/api/swift,swiftpackagemanager,macos
+# Edit at https://www.toptal.com/developers/gitignore?templates=swift,swiftpackagemanager,macos
 
 ### macOS ###
 # General
@@ -118,21 +118,10 @@ fastlane/test_output
 
 iOSInjectionProject/
 
-### Xcode ###
-
-## Xcode 8 and earlier
-
-### Xcode Patch ###
-*.xcodeproj/*
-!*.xcodeproj/project.pbxproj
-!*.xcodeproj/xcshareddata/
-!*.xcworkspace/contents.xcworkspacedata
-/*.gcno
-**/xcshareddata/WorkspaceSettings.xcsettings
-
-# End of https://www.toptal.com/developers/gitignore/api/macos,xcode,swift
-
-# tuist
+### SwiftPackageManager ###
+Packages
+xcuserdata
 *.xcodeproj
-*.xcworkspace
-**/Derived/
+
+
+# End of https://www.toptal.com/developers/gitignore/api/swift,swiftpackagemanager,macos
