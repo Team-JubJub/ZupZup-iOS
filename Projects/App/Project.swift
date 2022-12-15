@@ -12,13 +12,20 @@ let project = Project.makeModule(
     name: "App",
     platform: .iOS,
     product: .app,
+    packages: [
+        .remote(
+            url: "https://github.com/firebase/firebase-ios-sdk", requirement: .upToNextMajor(from: "10.0.0")
+        )
+    ],
     dependencies: [
         .project(target: "DesignSystem", path: "../DesignSystem"),
         .project(target: "ZupZupNetwork", path: "../ZupZupNetwork"),
         .external(name: "SnapKit"),
         .external(name: "RxSwift"),
         .external(name: "RxCocoa"),
-        .external(name: "FlexLayout")
+        .external(name: "FlexLayout"),
+        .package(product: "FirebaseFirestore"),
+        .package(product: "FirebaseFirestoreSwift")
     ],
     resources: ["Resources/**"],
     infoPlist: .file(path: "Support/Info.plist")
