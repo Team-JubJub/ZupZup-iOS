@@ -122,6 +122,15 @@ iOSInjectionProject/
 
 ## Xcode 8 and earlier
 
+### Firebase ###
+.idea
+**/node_modules/*
+**/.firebaserc
+
+### Firebase Patch ###
+.runtimeconfig.json
+.firebase/
+
 ### Xcode Patch ###
 *.xcodeproj/*
 !*.xcodeproj/project.pbxproj
