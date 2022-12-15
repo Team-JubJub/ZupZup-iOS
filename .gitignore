@@ -126,6 +126,7 @@ iOSInjectionProject/
 .idea
 **/node_modules/*
 **/.firebaserc
+**/GoogleService-Info
 
 ### Firebase Patch ###
 .runtimeconfig.json
@@ -138,6 +139,7 @@ iOSInjectionProject/
 !*.xcworkspace/contents.xcworkspacedata
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
+
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,xcode,swift
 
