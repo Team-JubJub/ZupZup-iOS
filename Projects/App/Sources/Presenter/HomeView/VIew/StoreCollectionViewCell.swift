@@ -116,4 +116,16 @@ extension StoreCollectionViewCell {
             make.centerY.equalTo(clockImageView.snp.centerY)
         }
     }
+    
+    func configure(
+        category: String,
+        storeName: String,
+        time: String,
+        discountPercentage: Int
+    ) {
+        self.categoryLabel.text = category
+        self.storeNameLabel.text = storeName
+        self.timeLable.text = time
+        self.discountPercentageLabel.text = "\(discountPercentage)%"
+    }
 }

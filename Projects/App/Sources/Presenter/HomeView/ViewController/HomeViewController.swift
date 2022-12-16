@@ -9,11 +9,14 @@
 import UIKit
 import SnapKit
 import DesignSystem
+import ZupZupNetwork
 
 
 class HomeViewController: BaseViewController {
 
     private var viewModel: HomeViewModel
+    
+    private var stores = [Store]()
 
     // MARK: 왼쪽 상단 타이틀 라벨
     let titleLabel = ZupzupTitleLabel(title: "가게")
@@ -57,6 +60,7 @@ class HomeViewController: BaseViewController {
         view.addSubview(storeCollectionView)
         storeCollectionView.delegate = self
         storeCollectionView.dataSource = self
+        fetchStores()
         layoutTitleLabel()
         layoutstoreTableView()
     }
@@ -69,13 +73,19 @@ class HomeViewController: BaseViewController {
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.stores.count
+        return stores.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StoreCollectionViewCell.cellId, for: indexPath) as? StoreCollectionViewCell else { return UICollectionViewCell() }
         
+        cell.configure(
+            category: stores[indexPath.row].category,
+            storeName: stores[indexPath.row].storeName,
+            time: stores[indexPath.row].discountTime,
+            discountPercentage: stores[indexPath.row].discountPercent
+        )
         cell.nextButton.addTarget(self, action: #selector(tapNextButton), for: .touchUpInside)
         
         return cell
@@ -102,5 +112,20 @@ extension HomeViewController {
     @objc
     func tapNextButton() {
         viewModel.pushStoreViewController()
+    }
+    
+    private func fetchStores() {
+        let ob = viewModel.fetchData()
+        let disposable = ob.subscribe { event in
+            switch event {
+            case .next(let stores):
+                self.stores = stores
+                self.storeCollectionView.reloadData()
+            case .error(_):
+                break
+            case .completed:
+                break
+            }
+        }
     }
 }

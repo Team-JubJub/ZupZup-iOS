@@ -13,19 +13,26 @@ public struct Item {
     let itemId: Int
     let storeId: Int
     let itemName: String
-    let price: Int
-    let discounted: Int
+    let imgUrl: String
+    let originPrice: Int
+    let discountPrice: Int
+    let stock: Int
     
-    public init(itemId: Int,
-                storeId: Int,
-                itemName: String,
-                price: Int,
-                discounted: Int)
-    {
+    public init(
+        itemId: Int,
+        storeId: Int,
+        itemName: String,
+        imgUrl: String,
+        originPrice: Int,
+        discountPrice: Int,
+        stock: Int
+    ) {
         self.itemId = itemId
         self.storeId = storeId
         self.itemName = itemName
-        self.price = price
-        self.discounted = discounted
+        self.imgUrl = imgUrl
+        self.originPrice = originPrice
+        self.discountPrice = discountPrice
+        self.stock = stock
     }
 }

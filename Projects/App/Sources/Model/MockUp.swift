@@ -10,11 +10,11 @@ import Foundation
 
 #if DEBUG
 // Item
-let firstItem = Item(itemId: 1, storeId: 1, itemName: "영진빵", price: 2000, discounted: 1800)
-
-let secondItem = Item(itemId: 2, storeId: 1, itemName: "준영빵", price: 1500, discounted: 1300)
-
-let thirdItem = Item(itemId: 3, storeId: 1, itemName: "지우빵", price: 5000, discounted: 4000)
+//let firstItem = Item(itemId: 1, storeId: 1, itemName: "영진빵", price: 2000, discounted: 1800)
+//
+//let secondItem = Item(itemId: 2, storeId: 1, itemName: "준영빵", price: 1500, discounted: 1300)
+//
+//let thirdItem = Item(itemId: 3, storeId: 1, itemName: "지우빵", price: 5000, discounted: 4000)
 
 // CartItem
 let firstCartItem = CartItem(orderNumber: 1,
