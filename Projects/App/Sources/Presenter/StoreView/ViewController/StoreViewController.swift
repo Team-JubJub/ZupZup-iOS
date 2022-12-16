@@ -66,7 +66,7 @@ class StoreViewController: BaseViewController {
         return label
     }()
     
-    private let informationView = informationDetailView()
+    private let informationView = InformationDetailView()
     
     private let StackView: UIStackView = {
         let stackView = UIStackView()
@@ -98,12 +98,14 @@ class StoreViewController: BaseViewController {
     // MARK: LIFE - Cycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print(viewModel.store.items.count)
         self.navigationController?.navigationBar.tintColor = .designSystem(.orangeE49318)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
+        setStoreInformation()
     }
 }
 
@@ -111,11 +113,13 @@ class StoreViewController: BaseViewController {
 extension StoreViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.items.count
+        return viewModel.store.items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.cellId, for: indexPath) as? ItemCollectionViewCell else { return UICollectionViewCell() }
+        cell.configure(item: viewModel.store.items[indexPath.row])
+        cell.configureImage(item: viewModel.store.items[indexPath.row])
         
         return cell
     }
@@ -183,7 +187,7 @@ extension StoreViewController {
         itemCollectionView.snp.makeConstraints { make in
             let cellHeight = (DeviceInfo.screenHeight * 74 / 844) + (DeviceInfo.verticalPadding / 2)
             make.width.equalTo(DeviceInfo.screenWidth * 358 / 390)
-            make.height.equalTo(Int(cellHeight) * viewModel.items.count)
+            make.height.equalTo(Int(cellHeight) * viewModel.store.items.count)
             make.centerX.equalToSuperview()
         }
         
@@ -194,15 +198,25 @@ extension StoreViewController {
             make.bottom.equalToSuperview().inset(DeviceInfo.verticalPadding * 2)
         }
     }
+    
+    private func setStoreInformation() {
+        let store = viewModel.store
+        titleLabel.text = store.storeName
+        addressLabel.text = store.address
+        informationView.timeLabel.text = store.discountTime
+        informationView.timeDetailLabel.text = store.openTime
+        // TODO: Fix
+        if !store.eventList.isEmpty {
+            informationView.eventLabel.text = store.eventList[0]
+        }
+    }
 }
 
 // MARK: Button Action
 extension StoreViewController {
     @objc
     func didReservationButtonTapped() {
-        // TODO: print문 삭제 예정
-        print("didReservationButtonTapped")
         reservationButton.isButtonSelected.toggle()
-        viewModel.pushReservationViewController(items: viewModel.items)
+        viewModel.pushReservationViewController(items: viewModel.store.items)
     }
 }

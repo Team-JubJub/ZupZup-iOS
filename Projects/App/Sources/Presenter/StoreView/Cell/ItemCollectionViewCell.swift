@@ -151,4 +151,16 @@ extension ItemCollectionViewCell {
             make.right.equalTo(itemAmountLabel.snp.left).offset(-DeviceInfo.screenWidth * 20 / 390)
         }
     }
+    
+    func configure(item: Item) {
+        itemTitleLabel.text = item.itemName
+        itemAmountLabel.text = "\(item.stock)"
+        itemPriceLabel.text = "\(item.originPrice)"
+        itemDiscountPriceLabel.text = "\(item.discountPrice)"
+    }
+    
+    func configureImage(item: Item) {
+        guard let url = URL(string: item.imgUrl) else { return }
+        itemImageView.load(url: url)
+    }
 }

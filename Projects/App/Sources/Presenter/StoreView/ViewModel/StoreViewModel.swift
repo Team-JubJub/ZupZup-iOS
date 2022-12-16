@@ -12,26 +12,19 @@ final class StoreViewModel {
 
     var coordinator: Coordinator
     
-    var items = [Item]()
+    let store: Store
     
-    init(coordinator: Coordinator) {
+    init(
+        coordinator: Coordinator,
+        store: Store
+    ) {
         self.coordinator = coordinator
-//        fetchData()
+        self.store = store
     }
 }
 
 extension StoreViewModel {
-//    private func fetchData() {
-//        let item = Item(itemId: 1,
-//                        storeId: 1,
-//                        itemName: "영진 라떼",
-//                        price: 2000,
-//                        discounted: 4000)
-//
-//        for _ in 0...13 {
-//            items.append(item)
-//        }
-//    }
+    
 }
 
 extension StoreViewModel {
