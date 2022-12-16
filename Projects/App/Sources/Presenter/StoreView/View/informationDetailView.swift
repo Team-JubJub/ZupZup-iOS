@@ -9,7 +9,7 @@
 import UIKit
 import DesignSystem
 
-class informationDetailView: UIView {
+class InformationDetailView: UIView {
     
     private let discountTimeLabel: UILabel = {
         let label = UILabel()
@@ -27,7 +27,7 @@ class informationDetailView: UIView {
         return label
     }()
     
-    private let timeLabel: UILabel = {
+    let timeLabel: UILabel = {
         let label = UILabel()
         label.text = "19:00 ~ 21:00"
         label.font = .designSystem(weight: .regular, size: ._15)
@@ -35,7 +35,7 @@ class informationDetailView: UIView {
         return label
     }()
     
-    private let eventLabel: UILabel = {
+    let eventLabel: UILabel = {
         let label = UILabel()
         label.text = "현금결제시 500원 할인"
         label.font = .designSystem(weight: .regular, size: ._15)
@@ -43,7 +43,7 @@ class informationDetailView: UIView {
         return label
     }()
     
-    private let timeDetailLabel: UILabel = {
+    let timeDetailLabel: UILabel = {
         let label = UILabel()
         label.text = "12:00~21:00, 공휴일 휴무"
         label.font = .designSystem(weight: .regular, size: ._13)
@@ -98,7 +98,7 @@ class informationDetailView: UIView {
     }
 }
 
-extension informationDetailView {
+extension InformationDetailView {
     
     private func setBackground() {
         backgroundColor = .designSystem(.greyEAE5DF)
