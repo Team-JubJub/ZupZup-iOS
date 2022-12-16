@@ -7,31 +7,42 @@
 //
 
 import Foundation
+import CoreLocation
 
 // MARK: 매장
 public struct Store {
-    let id: Int
-    let address: String
-    let eventList: [String]
-    let merchandiseList: [Item]
-    let name: String
+    let storeId: Int
+    let category: String
+    let storeName: String
     let openTime: String
-    let event: String
+    let discountPercent: Int
+    let discountTime: String
+    let address: String
+    let location: CLLocationCoordinate2D
+    let items: [Item]
+    let eventList: [String]
     
-    public init(id: Int,
-                address: String,
-                eventList: [String],
-                merchandiseList: [Item],
-                name: String,
-                openTime: String,
-                event: String)
-    {
-        self.id = id
-        self.address = address
-        self.eventList = eventList
-        self.merchandiseList = merchandiseList
-        self.name = name
+    public init(
+        storeId: Int,
+        category: String,
+        storeName: String,
+        openTime: String,
+        discountPercent: Int,
+        discountTime: String,
+        address: String,
+        location: CLLocationCoordinate2D,
+        items: [Item],
+        eventList: [String]
+    ) {
+        self.storeId = storeId
+        self.category = category
+        self.storeName = storeName
         self.openTime = openTime
-        self.event = event
+        self.discountPercent = discountPercent
+        self.discountTime = discountTime
+        self.address = address
+        self.location = location
+        self.items = items
+        self.eventList = eventList
     }
 }
