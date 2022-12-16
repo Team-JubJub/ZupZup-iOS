@@ -16,7 +16,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
     private let itemImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .red
-        imageView.image = UIImage(.mock_bread)
+        imageView.image = UIImage(.emptyImage)
         return imageView
     }()
 
@@ -133,6 +133,7 @@ extension ItemCollectionViewCell {
         
         itemTitleLabel.snp.makeConstraints { make in
             make.left.equalTo(itemImageView.snp.right).offset(DeviceInfo.horizontalPadding / 2)
+            make.right.equalTo(minusButton.snp.left)
             make.top.equalToSuperview().offset(DeviceInfo.screenHeight * 15 / 844)
         }
         
