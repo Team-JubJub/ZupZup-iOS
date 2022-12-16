@@ -98,7 +98,6 @@ class StoreViewController: BaseViewController {
     // MARK: LIFE - Cycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print(viewModel.store.items.count)
         self.navigationController?.navigationBar.tintColor = .designSystem(.orangeE49318)
     }
     

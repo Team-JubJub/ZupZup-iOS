@@ -53,7 +53,7 @@ class InformationDetailView: UIView {
     
     private let clockView: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = DeviceInfo.screenWidth * 30 / 390 / 2
+        view.layer.cornerRadius = DeviceInfo.screenWidth * 8 / 390
         view.backgroundColor = .designSystem(.orangeE49318)
         return view
     }()
@@ -68,7 +68,7 @@ class InformationDetailView: UIView {
     
     private let giftView: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = DeviceInfo.screenWidth * 30 / 390 / 2
+        view.layer.cornerRadius = DeviceInfo.screenWidth * 8 / 390
         view.backgroundColor = .designSystem(.orangeE49318)
         return view
     }()

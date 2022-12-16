@@ -44,6 +44,30 @@ class ItemCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    private let slashLabel: UILabel = {
+        let label = UILabel()
+        label.text = "/"
+        label.font = .designSystem(weight: .regular, size: ._17)
+        label.textColor = .designSystem(.greyC8BCAB)
+        return label
+    }()
+    
+    private let itemAmountLabel: UILabel = {
+        let label = UILabel()
+        label.text = "0"
+        label.font = .designSystem(weight: .regular, size: ._17)
+        label.textColor = .designSystem(.greyC8BCAB)
+        return label
+    }()
+    
+    private let currentAmountLabel: UILabel = {
+        let label = UILabel()
+        label.text = "0"
+        label.font = .designSystem(weight: .regular, size: ._17)
+        label.textColor = .designSystem(.orangeE49318)
+        return label
+    }()
+    
     private let lineView: UIView = {
         let view = UIView()
         view.backgroundColor = .designSystem(.greyC8BCAB)
@@ -58,14 +82,6 @@ class ItemCollectionViewCell: UICollectionViewCell {
         button.backgroundColor = .designSystem(.greyEAE5DF)
         button.layer.cornerRadius = DeviceInfo.screenWidth * 20 / 390 / 2
         return button
-    }()
-    
-    private let itemAmountLabel: UILabel = {
-        let label = UILabel()
-        label.text = "0"
-        label.font = .designSystem(weight: .regular, size: ._17)
-        label.textColor = .designSystem(.black1E1E1E)
-        return label
     }()
     
     private let plusButton: UIButton = {
@@ -105,6 +121,8 @@ extension ItemCollectionViewCell {
         contentView.addSubview(minusButton)
         contentView.addSubview(plusButton)
         contentView.addSubview(itemAmountLabel)
+        contentView.addSubview(slashLabel)
+        contentView.addSubview(currentAmountLabel)
         
         itemImageView.snp.makeConstraints { make in
             make.left.equalToSuperview()
@@ -136,19 +154,29 @@ extension ItemCollectionViewCell {
         
         minusButton.snp.makeConstraints { make in
             make.width.height.equalTo(DeviceInfo.screenWidth * 20 / 390)
-            make.right.equalToSuperview().offset(-DeviceInfo.verticalPadding)
-            make.centerY.equalToSuperview()
+            make.centerY.equalTo(plusButton.snp.centerY)
+            make.right.equalTo(plusButton.snp.left).offset(-DeviceInfo.screenWidth * 57 / 390)
+        }
+        
+        slashLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(plusButton.snp.centerY)
+            make.centerX.equalTo(DeviceInfo.screenWidth * 293.5 / 390)
         }
         
         itemAmountLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(minusButton.snp.centerY)
-            make.right.equalTo(minusButton.snp.left).offset(-DeviceInfo.screenWidth * 20 / 390)
+            make.centerY.equalTo(plusButton.snp.centerY)
+            make.left.equalTo(slashLabel.snp.right)
+        }
+        
+        currentAmountLabel.snp.makeConstraints { make in
+            make.right.equalTo(slashLabel.snp.left)
+            make.centerY.equalTo(plusButton.snp.centerY)
         }
         
         plusButton.snp.makeConstraints { make in
             make.width.height.equalTo(DeviceInfo.screenWidth * 20 / 390)
-            make.centerY.equalTo(itemAmountLabel.snp.centerY)
-            make.right.equalTo(itemAmountLabel.snp.left).offset(-DeviceInfo.screenWidth * 20 / 390)
+            make.centerY.equalToSuperview()
+            make.right.equalToSuperview().offset(-DeviceInfo.horizontalPadding)
         }
     }
     
