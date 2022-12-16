@@ -39,19 +39,19 @@ class StoreViewController: BaseViewController {
     private let titleLabel = ZupzupTitleLabel(title: "영진상회")
     
     private lazy var mapView: MKMapView = {
-        let map = MKMapView()
-        map.layer.cornerRadius = 14
-        map.setRegion(
+        let mapView = MKMapView()
+        mapView.layer.cornerRadius = 14
+        mapView.setRegion(
             MKCoordinateRegion(
-                center: CLLocationCoordinate2D(
-                    latitude: 35.22790613649247,
-                    longitude: 129.0843880607427
-                ),
-                span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+                center: viewModel.store.location,
+                span: MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003)
             ),
             animated: true
         )
-        return map
+        let pin = MKPointAnnotation()
+        pin.coordinate = viewModel.store.location
+        mapView.addAnnotation(pin)
+        return mapView
     }()
     
     private let informationLabel = ZupzupSubTitleLabel(title: "정보")
