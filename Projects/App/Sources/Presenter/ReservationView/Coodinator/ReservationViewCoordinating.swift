@@ -9,5 +9,5 @@
 import Foundation
 
 protocol ReservationViewCoordinating {
-    func pushReservationViewController(items: [Item])
+    func pushReservationViewController(store: Store)
 }

@@ -216,7 +216,7 @@ extension StoreViewController {
 extension StoreViewController {
     @objc
     func didReservationButtonTapped() {
-        viewModel.pushReservationViewController(items: viewModel.store.items)
+        viewModel.pushReservationViewController(store: viewModel.store)
     }
 }
 

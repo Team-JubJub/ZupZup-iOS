@@ -14,9 +14,12 @@ final class ReservationViewModel {
     
     var items = [Item]()
     
-    init(coordinator: Coordinator, items: [Item]) {
-        self.items = items
+    private let store: Store
+    
+    init(coordinator: Coordinator, store: Store) {
         self.coordinator = coordinator
+        self.store = store
+        setSelectedItems()
     }
 }
 
@@ -31,5 +34,9 @@ extension ReservationViewModel {
     func presentSetInfoView() {
         guard let coordinator = coordinator as? SetInfoViewCoordinating else { return }
         coordinator.presentSetInfoView()
+    }
+    
+    func setSelectedItems() {
+        self.items = store.items.filter { $0.numOfSelected > 0 }
     }
 }

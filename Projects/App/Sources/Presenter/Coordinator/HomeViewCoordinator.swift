@@ -45,8 +45,8 @@ extension HomeViewCoordinator: StoreViewCoordinating {
 
 // MARK: ReservationViewController로 전환
 extension HomeViewCoordinator: ReservationViewCoordinating {
-    func pushReservationViewController(items: [Item]) {
-        let viewModel = ReservationViewModel(coordinator: self, items: items)
+    func pushReservationViewController(store: Store) {
+        let viewModel = ReservationViewModel(coordinator: self, store: store)
         let viewController = ReservationViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
