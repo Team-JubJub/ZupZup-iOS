@@ -134,6 +134,7 @@ extension SetTimeViewController {
         dateFormatter.dateFormat = "HH:mm a"
         dateFormatter.locale = Locale(identifier: "en_US")
         let date = dateFormatter.string(from: datePicker.date)
+        
         timeLabel.text = date
         viewModel.getCurrentTime(currentTime: date)
         setTimeButton.isButtonSelected = viewModel.checkSetTimeButtonValidation(time: date)

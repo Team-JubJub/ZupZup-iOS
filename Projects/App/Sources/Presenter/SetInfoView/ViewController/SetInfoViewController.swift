@@ -20,6 +20,8 @@ class SetInfoViewController: BaseViewController {
     
     private let titleLabel = ZupzupModalTitleLabel(title: "개인 정보")
     
+    private let setInfoButton = ZupzupButton(title: "개인정보 입력하기")
+    
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "이름"
@@ -45,7 +47,6 @@ class SetInfoViewController: BaseViewController {
         return textField
     }()
     
-    
     private let phoneNumberTextField: ZupzupUnderLineTextField = {
         let textField = ZupzupUnderLineTextField()
         textField.borderStyle = .none
@@ -60,12 +61,21 @@ class SetInfoViewController: BaseViewController {
     init(viewModel: SetInfoViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        setUI()
-        setButtonTarget()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Life-Cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setUI()
+        setButtonTarget()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+        self.view.endEditing(true)
     }
 }
 
@@ -82,6 +92,7 @@ extension SetInfoViewController {
         view.addSubview(phoneNumberLabel)
         view.addSubview(nameTextField)
         view.addSubview(phoneNumberTextField)
+        view.addSubview(setInfoButton)
         
         dismissButton.snp.makeConstraints { make in
             make.width.height.equalTo(DeviceInfo.screenWidth * 30 / 390)
@@ -116,6 +127,13 @@ extension SetInfoViewController {
             make.width.equalTo(DeviceInfo.screenWidth * 358 / 390)
             make.height.equalTo(DeviceInfo.screenHeight * 44 / 844)
             make.top.equalTo(phoneNumberLabel.snp.bottom).offset(DeviceInfo.verticalPadding)
+        }
+        
+        setInfoButton.snp.makeConstraints { make in
+            make.width.equalTo(DeviceInfo.screenWidth * 358 / 390)
+            make.height.equalTo(DeviceInfo.screenHeight * 57 / 844)
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().inset(DeviceInfo.screenHeight * 34 / 844)
         }
     }
     
