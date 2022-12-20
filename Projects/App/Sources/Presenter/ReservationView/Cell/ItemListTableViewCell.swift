@@ -54,4 +54,9 @@ extension ItemListTableViewCell {
             make.centerY.equalToSuperview()
         }
     }
+    
+    func configure(itemTitle: String, itemPrice: Int, numOfItem: Int) {
+        itemTitleLabel.text = itemTitle + " \(numOfItem)개"
+        itemPriceLabel.text = "\(itemPrice * numOfItem)원"
+    }
 }

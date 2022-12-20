@@ -85,6 +85,7 @@ class ReservationViewController: BaseViewController {
         setUI()
         setReservationCompleteButtonTarget()
         setTapGesture()
+        configureLabels()
     }
 }
 
@@ -96,6 +97,12 @@ extension ReservationViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ItemListTableViewCell.identifier, for: indexPath) as? ItemListTableViewCell else { return UITableViewCell() }
+        let item = viewModel.items[indexPath.row]
+        cell.configure(
+            itemTitle: item.itemName,
+            itemPrice: item.discountPrice,
+            numOfItem: item.numOfSelected
+        )
         return cell
     }
     
@@ -195,6 +202,11 @@ extension ReservationViewController {
         let tapVisitorGesture = UITapGestureRecognizer(target: self, action: #selector(tapVistorView))
         visitTimeView.addGestureRecognizer(tapVisitTimeGesture)
         visitorView.addGestureRecognizer(tapVisitorGesture)
+    }
+    
+    private func configureLabels() {
+        shoppingItemView.totalPriceLabel.text = "\(viewModel.setTotalPrice())원"
+        shoppingItemView.itemCountLabel.text = "\(viewModel.setTotalNumOfItems())개"
     }
     
     @objc

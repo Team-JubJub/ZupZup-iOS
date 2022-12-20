@@ -23,6 +23,21 @@ final class ReservationViewModel {
     }
 }
 
+extension ReservationViewModel {
+    func setSelectedItems() {
+        self.items = store.items.filter { $0.numOfSelected > 0 }
+    }
+    
+    func setTotalPrice() -> Int {
+        let totalPriceArray = items.map { $0.numOfSelected * $0.discountPrice }
+        return totalPriceArray.reduce(0, +)
+    }
+    
+    func setTotalNumOfItems() -> Int {
+        return items.map { $0.numOfSelected }.reduce(0, +)
+    }
+}
+
 // MARK: Coordinator
 extension ReservationViewModel {
     // MARK: 시간 설정 화면으로 전환
@@ -34,9 +49,5 @@ extension ReservationViewModel {
     func presentSetInfoView() {
         guard let coordinator = coordinator as? SetInfoViewCoordinating else { return }
         coordinator.presentSetInfoView()
-    }
-    
-    func setSelectedItems() {
-        self.items = store.items.filter { $0.numOfSelected > 0 }
     }
 }
