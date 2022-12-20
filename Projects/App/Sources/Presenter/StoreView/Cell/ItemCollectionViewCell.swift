@@ -9,9 +9,22 @@
 import UIKit
 import SnapKit
 
+protocol ItemCollectionViewCellDelegate: AnyObject {
+    func tapPlusButton(cellIndex: Int)
+    func tapMinusButton(cellIndex: Int)
+}
+
 class ItemCollectionViewCell: UICollectionViewCell {
     
     static let cellId = "ItemCollectionViewCell"
+    
+    private var cellIndex: Int = 0
+    
+    private var itemCount: Int = 0
+    
+    private var maxItemCount: Int = 0
+    
+    weak var delegate: ItemCollectionViewCellDelegate?
     
     private let itemImageView: UIImageView = {
         let imageView = UIImageView()
@@ -30,7 +43,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
     
     private let itemDiscountPriceLabel: UILabel = {
         let label = UILabel()
-        label.text = "2000원"
+        label.text = ""
         label.font = .designSystem(weight: .semiBold, size: ._13)
         label.textColor = .designSystem(.orangeE49318)
         return label
@@ -38,7 +51,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
     
     private let itemPriceLabel: UILabel = {
         let label = UILabel()
-        label.text = "3000원"
+        label.text = ""
         label.font = .designSystem(weight: .semiBold, size: ._13)
         label.textColor = .designSystem(.greyC8BCAB)
         return label
@@ -95,6 +108,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
     }()
     
     // MARK: Initializer
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUI()
@@ -108,7 +122,6 @@ class ItemCollectionViewCell: UICollectionViewCell {
 extension ItemCollectionViewCell {
     
     private func setUI() {
-        
         contentView.backgroundColor = .clear
         contentView.layer.cornerRadius = 14
         contentView.clipsToBounds = true
@@ -179,17 +192,50 @@ extension ItemCollectionViewCell {
             make.centerY.equalToSuperview()
             make.right.equalToSuperview().offset(-DeviceInfo.horizontalPadding)
         }
+        
+        plusButton.addTarget(self, action: #selector(tapPlusButton), for: .touchUpInside)
+        minusButton.addTarget(self, action: #selector(tapMinusButton), for: .touchUpInside)
     }
     
-    func configure(item: Item) {
+    func configure(item: Item, index: Int) {
         itemTitleLabel.text = item.itemName
         itemAmountLabel.text = "\(item.stock)"
         itemPriceLabel.text = "\(item.originPrice)"
         itemDiscountPriceLabel.text = "\(item.discountPrice)"
+        cellIndex = index
+        maxItemCount = item.stock
     }
     
     func configureImage(item: Item) {
         guard let url = URL(string: item.imgUrl) else { return }
         itemImageView.load(url: url)
+    }
+    
+    @objc
+    func tapPlusButton() {
+        if itemCount < maxItemCount {
+            DispatchQueue.global().async { [weak self] in
+                guard let self = self else { return }
+                self.itemCount += 1
+                self.delegate?.tapPlusButton(cellIndex: self.cellIndex)
+                DispatchQueue.main.async {
+                    self.currentAmountLabel.text = "\(self.itemCount)"
+                }
+            }
+        }
+    }
+    
+    @objc
+    func tapMinusButton() {
+        if itemCount > 0 {
+            DispatchQueue.global().async { [weak self] in
+                guard let self = self else { return }
+                self.itemCount -= 1
+                self.delegate?.tapMinusButton(cellIndex: self.cellIndex)
+                DispatchQueue.main.async {
+                    self.currentAmountLabel.text = "\(self.itemCount)"
+                }
+            }
+        }
     }
 }

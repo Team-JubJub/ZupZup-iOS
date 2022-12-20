@@ -117,8 +117,9 @@ extension StoreViewController: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ItemCollectionViewCell.cellId, for: indexPath) as? ItemCollectionViewCell else { return UICollectionViewCell() }
-        cell.configure(item: viewModel.store.items[indexPath.row])
+        cell.configure(item: viewModel.store.items[indexPath.row], index: indexPath.row)
         cell.configureImage(item: viewModel.store.items[indexPath.row])
+        cell.delegate = self
         
         return cell
     }
@@ -215,7 +216,24 @@ extension StoreViewController {
 extension StoreViewController {
     @objc
     func didReservationButtonTapped() {
-        reservationButton.isButtonSelected.toggle()
         viewModel.pushReservationViewController(items: viewModel.store.items)
+    }
+}
+
+extension StoreViewController: ItemCollectionViewCellDelegate {
+    func tapPlusButton(cellIndex: Int) {
+        viewModel.store.items[cellIndex].numOfSelected += 1
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.reservationButton.isButtonSelected = self.viewModel.isNextButtonEnable()
+        }
+    }
+    
+    func tapMinusButton(cellIndex: Int) {
+        viewModel.store.items[cellIndex].numOfSelected -= 1
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.reservationButton.isButtonSelected = self.viewModel.isNextButtonEnable()
+        }
     }
 }

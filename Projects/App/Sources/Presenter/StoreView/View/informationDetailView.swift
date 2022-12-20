@@ -29,7 +29,7 @@ class InformationDetailView: UIView {
     
     let timeLabel: UILabel = {
         let label = UILabel()
-        label.text = "19:00 ~ 21:00"
+        label.text = ""
         label.font = .designSystem(weight: .regular, size: ._15)
         label.textColor = .designSystem(.black1E1E1E)
         return label
@@ -37,7 +37,7 @@ class InformationDetailView: UIView {
     
     let eventLabel: UILabel = {
         let label = UILabel()
-        label.text = "현금결제시 500원 할인"
+        label.text = ""
         label.font = .designSystem(weight: .regular, size: ._15)
         label.textColor = .designSystem(.black1E1E1E)
         return label
@@ -45,7 +45,7 @@ class InformationDetailView: UIView {
     
     let timeDetailLabel: UILabel = {
         let label = UILabel()
-        label.text = "12:00~21:00, 공휴일 휴무"
+        label.text = ""
         label.font = .designSystem(weight: .regular, size: ._13)
         label.textColor = .designSystem(.greyAFA08A)
         return label

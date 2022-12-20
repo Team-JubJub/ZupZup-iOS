@@ -12,7 +12,7 @@ final class StoreViewModel {
 
     var coordinator: Coordinator
     
-    let store: Store
+    var store: Store
     
     init(
         coordinator: Coordinator,
@@ -24,7 +24,9 @@ final class StoreViewModel {
 }
 
 extension StoreViewModel {
-    
+    func isNextButtonEnable() -> Bool {
+        return !store.items.filter {return $0.numOfSelected > 0}.isEmpty
+    }
 }
 
 extension StoreViewModel {

@@ -15,9 +15,11 @@ class ZupzupButton: UIButton {
             case true:
                 self.backgroundColor = .designSystem(.orangeE49318)
                 self.setTitleColor(.designSystem(.black1E1E1E), for: .normal)
+                self.isEnabled = true
             case false:
                 self.backgroundColor = .designSystem(.greyEAE5DF)
                 self.setTitleColor(.designSystem(.grey8C8C8C), for: .normal)
+                self.isEnabled = false
             }
         }
     }
@@ -30,6 +32,7 @@ class ZupzupButton: UIButton {
         self.layer.cornerRadius = 14
         self.backgroundColor = .designSystem(.greyEAE5DF)
         self.setTitleColor(.designSystem(.grey8C8C8C), for: .normal)
+        self.isEnabled = false
     }
     
     required init?(coder: NSCoder) {
