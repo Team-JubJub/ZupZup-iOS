@@ -207,6 +207,8 @@ extension ReservationViewController {
     private func configureLabels() {
         shoppingItemView.totalPriceLabel.text = "\(viewModel.setTotalPrice())원"
         shoppingItemView.itemCountLabel.text = "\(viewModel.setTotalNumOfItems())개"
+        storeInformationView.storeAddressLabel.text = viewModel.setStoreAddress()
+        storeInformationView.storeNameLabel.text = viewModel.setStoreTitle()
     }
     
     @objc

@@ -36,6 +36,14 @@ extension ReservationViewModel {
     func setTotalNumOfItems() -> Int {
         return items.map { $0.numOfSelected }.reduce(0, +)
     }
+    
+    func setStoreTitle() -> String {
+        return store.storeName
+    }
+    
+    func setStoreAddress() -> String {
+        return store.address
+    }
 }
 
 // MARK: Coordinator
