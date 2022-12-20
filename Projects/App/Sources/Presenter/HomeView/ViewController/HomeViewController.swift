@@ -90,6 +90,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedIndex = indexPath.row
+        viewModel.pushStoreViewController(store: stores[selectedIndex])
+    }
 }
 
 
@@ -111,12 +116,12 @@ extension HomeViewController {
     
     @objc
     func tapNextButton() {
-        viewModel.pushStoreViewController()
+        viewModel.pushStoreViewController(store: stores[0])
     }
     
     private func fetchStores() {
         let ob = viewModel.fetchData()
-        let disposable = ob.subscribe { event in
+        let _ = ob.subscribe { event in
             switch event {
             case .next(let stores):
                 self.stores = stores

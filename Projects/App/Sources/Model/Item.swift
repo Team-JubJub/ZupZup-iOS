@@ -17,6 +17,7 @@ public struct Item {
     let originPrice: Int
     let discountPrice: Int
     let stock: Int
+    var numOfSelected: Int
     
     public init(
         itemId: Int,
@@ -25,7 +26,8 @@ public struct Item {
         imgUrl: String,
         originPrice: Int,
         discountPrice: Int,
-        stock: Int
+        stock: Int,
+        numOfSelected: Int = 0
     ) {
         self.itemId = itemId
         self.storeId = storeId
@@ -34,5 +36,6 @@ public struct Item {
         self.originPrice = originPrice
         self.discountPrice = discountPrice
         self.stock = stock
+        self.numOfSelected = numOfSelected
     }
 }

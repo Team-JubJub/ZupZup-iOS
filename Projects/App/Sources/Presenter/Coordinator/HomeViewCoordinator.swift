@@ -33,8 +33,11 @@ final class HomeViewCoordinator: Coordinator {
 
 // MARK: StoreViewController로 전환
 extension HomeViewCoordinator: StoreViewCoordinating {
-    func pushStoreViewController() {
-        let viewModel = StoreViewModel(coordinator: self)
+    func pushStoreViewController(store: Store) {
+        let viewModel = StoreViewModel(
+            coordinator: self,
+            store: store
+        )
         let viewController = StoreViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }

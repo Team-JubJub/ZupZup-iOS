@@ -19,7 +19,7 @@ public struct Store {
     let discountTime: String
     let address: String
     let location: CLLocationCoordinate2D
-    let items: [Item]
+    var items: [Item]
     let eventList: [String]
     
     public init(

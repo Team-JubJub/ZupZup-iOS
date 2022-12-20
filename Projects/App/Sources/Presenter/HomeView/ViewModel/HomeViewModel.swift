@@ -16,8 +16,6 @@ final class HomeViewModel {
     
     private var fetchStoreUseCase: FetchStoreUseCase
     
-    var storeObservable = BehaviorSubject<[StoreDTO]>(value: [])
-    
     init(
         coordinator: Coordinator,
         fetchStoreUseCase: FetchStoreUseCase = FetchStoreUseCaseImpl()
@@ -46,8 +44,8 @@ extension HomeViewModel {
 }
 
 extension HomeViewModel {
-    func pushStoreViewController() {
+    func pushStoreViewController(store: Store) {
         guard let coordinator = coordinator as? StoreViewCoordinating else { return }
-        coordinator.pushStoreViewController()
+        coordinator.pushStoreViewController(store: store)
     }
 }

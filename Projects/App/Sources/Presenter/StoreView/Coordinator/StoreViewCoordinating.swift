@@ -9,5 +9,5 @@
 import Foundation
 
 protocol StoreViewCoordinating {
-    func pushStoreViewController ()
+    func pushStoreViewController (store: Store)
 }
