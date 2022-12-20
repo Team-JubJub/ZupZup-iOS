@@ -54,8 +54,9 @@ extension HomeViewCoordinator: ReservationViewCoordinating {
 
 // MARK: SetInfoViewController Present
 extension HomeViewCoordinator: SetTimeViewCoordinating {
-    func presentSetTimeView() {
+    func presentSetTimeView(parentVC: ReservationViewController) {
         let viewModel = SetTimeViewModel(coordinator: self)
+        viewModel.delegate = parentVC
         let viewController = SetTimeViewController(viewModel: viewModel)
         
         viewController.modalPresentationStyle = .pageSheet

@@ -49,9 +49,9 @@ extension ReservationViewModel {
 // MARK: Coordinator
 extension ReservationViewModel {
     // MARK: 시간 설정 화면으로 전환
-    func presentSetTimeView() {
+    func presentSetTimeView(parentVC: ReservationViewController) {
         guard let coordinator = coordinator as? SetTimeViewCoordinating else { return }
-        coordinator.presentSetTimeView()
+        coordinator.presentSetTimeView(parentVC: parentVC)
     }
     // MARK: 정보 설정 화면으로 전환
     func presentSetInfoView() {

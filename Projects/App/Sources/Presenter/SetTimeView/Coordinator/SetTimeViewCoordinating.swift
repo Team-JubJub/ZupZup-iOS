@@ -9,5 +9,5 @@
 import Foundation
 
 protocol SetTimeViewCoordinating {
-    func presentSetTimeView()
+    func presentSetTimeView(parentVC: ReservationViewController)
 }

@@ -18,7 +18,7 @@ class SetTimeViewController: BaseViewController {
         let label = UILabel()
         label.font = .designSystem(weight: .regular, size: ._20)
         label.textColor = .designSystem(.orangeE49318)
-        label.text = "9:41 AM"
+        label.text = " "
         return label
     }()
     
@@ -39,9 +39,8 @@ class SetTimeViewController: BaseViewController {
     private let datePicker: UIDatePicker = {
         let picker = UIDatePicker()
         picker.datePickerMode = .time
-        picker.locale = Locale(identifier: "ko-KR")
+        picker.locale = Locale(identifier: "en_US")
         picker.preferredDatePickerStyle = .wheels
-//        picker.setValue(UIColor.designSystem(.orangeE49318), forKey: "textColor")
         picker.setValue(false, forKey: "highlightsToday")
         return picker
     }()
@@ -52,7 +51,7 @@ class SetTimeViewController: BaseViewController {
         super.init(nibName: nil, bundle: nil)
         setBackground()
         setUI()
-        setButtonTarget()
+        setTargets()
     }
     
     required init?(coder: NSCoder) {
@@ -110,9 +109,10 @@ extension SetTimeViewController {
         }
     }
     
-    private func setButtonTarget() {
+    private func setTargets() {
         dismissButton.addTarget(self, action: #selector(tapDismissButton), for: .touchUpInside)
         setTimeButton.addTarget(self, action: #selector(tapSetTimeButton), for: .touchUpInside)
+        datePicker.addTarget(self, action: #selector(datePickerChanged), for: .valueChanged)
     }
     
     @objc
@@ -122,6 +122,20 @@ extension SetTimeViewController {
     
     @objc
     func tapSetTimeButton() {
-        setTimeButton.isButtonSelected.toggle()
+        viewModel.setCurrentTime()
+        viewModel.dismissViewController()
+    }
+    
+    @objc
+    func datePickerChanged() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .none
+        dateFormatter.timeStyle = .short
+        dateFormatter.dateFormat = "HH:mm a"
+        dateFormatter.locale = Locale(identifier: "en_US")
+        let date = dateFormatter.string(from: datePicker.date)
+        timeLabel.text = date
+        viewModel.getCurrentTime(currentTime: date)
+        setTimeButton.isButtonSelected = viewModel.checkSetTimeButtonValidation(time: date)
     }
 }
