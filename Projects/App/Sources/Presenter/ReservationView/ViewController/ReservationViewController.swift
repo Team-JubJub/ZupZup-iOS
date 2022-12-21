@@ -83,7 +83,7 @@ class ReservationViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
-        setReservationCompleteButtonTarget()
+        setButtonTargets()
         setTapGesture()
         configureLabels()
     }
@@ -192,8 +192,10 @@ extension ReservationViewController {
         }
     }
     
-    private func setReservationCompleteButtonTarget() {
+    private func setButtonTargets() {
         reservationCompleteButton.addTarget(self, action: #selector(didReservationCompleteButtonTapped), for: .touchUpInside)
+        personInformationAgreeView.moreInformationButton.addTarget(self, action: #selector(tapPersonalInfoAgreeButton), for: .touchUpInside)
+        personInformationAgreeView.checkButton.addTarget(self, action: #selector(tapPersonalInfoAgreeButton), for: .touchUpInside)
     }
     
     private func setTapGesture() {
@@ -223,6 +225,11 @@ extension ReservationViewController {
     @objc
     func tapVistorView() {
         viewModel.presentSetInfoView(parentVC: self)
+    }
+    
+    @objc
+    func tapPersonalInfoAgreeButton() {
+        viewModel.presentPersonalInfoAgreeView(parentVC: self)
     }
 }
 

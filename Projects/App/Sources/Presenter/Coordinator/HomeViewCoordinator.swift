@@ -92,3 +92,16 @@ extension HomeViewCoordinator: Dismissable {
         navigationController.dismiss(animated: true)
     }
 }
+
+extension HomeViewCoordinator: PersonalInfoAgreeCoordinating {
+    func presentPersonalInfoAgreeView(parentVC: ReservationViewController) {
+        let viewModel = PersonalInfoAgreeViewModel(coordinator: self)
+        let viewController = PersonalInfoAgreeViewController(viewModel: viewModel)
+        
+        viewController.modalPresentationStyle = .pageSheet
+        if let sheet = viewController.sheetPresentationController {
+            sheet.detents = [.large()]
+        }
+        navigationController.present(viewController, animated: true)
+    }
+}

@@ -85,6 +85,7 @@ extension SetInfoViewController {
     
     private func setBackGround() {
         view.backgroundColor = .white
+        view.layer.cornerRadius = DeviceInfo.screenWidth * 15 / 390
     }
     
     private func setUI() {

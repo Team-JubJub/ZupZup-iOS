@@ -58,4 +58,9 @@ extension ReservationViewModel {
         guard let coordinator = coordinator as? SetInfoViewCoordinating else { return }
         coordinator.presentSetInfoView(parentVC: parentVC)
     }
+    
+    func presentPersonalInfoAgreeView(parentVC: ReservationViewController) {
+        guard let coordinator = coordinator as? PersonalInfoAgreeCoordinating else { return }
+        coordinator.presentPersonalInfoAgreeView(parentVC: parentVC)
+    }
 }
