@@ -36,7 +36,7 @@ class VisitTimeView: UIView {
     let timeLabel: UILabel = {
         let label = UILabel()
         label.font = .designSystem(weight: .regular, size: ._17)
-        label.text = "00:00 AM"
+        label.text = "시간을 입력하세요"
         label.textColor = .designSystem(.black1E1E1E)
         return label
     }()

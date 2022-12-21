@@ -68,8 +68,9 @@ extension HomeViewCoordinator: SetTimeViewCoordinating {
 }
 
 extension HomeViewCoordinator: SetInfoViewCoordinating {
-    func presentSetInfoView() {
+    func presentSetInfoView(parentVC: ReservationViewController) {
         let viewModel = SetInfoViewModel(coordinator: self)
+        viewModel.delegate = parentVC
         let viewController = SetInfoViewController(viewModel: viewModel)
         
         viewController.modalPresentationStyle = .pageSheet

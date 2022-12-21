@@ -50,6 +50,7 @@ class SetInfoViewController: BaseViewController {
     private let phoneNumberTextField: ZupzupUnderLineTextField = {
         let textField = ZupzupUnderLineTextField()
         textField.borderStyle = .none
+        textField.keyboardType = .numberPad
         textField.tintColor = .designSystem(.orangeE49318)
         textField.textColor = .designSystem(.black1E1E1E)
         textField.setPlaceholder(placeHolder: "전화번호를 입력하세요", color: .designSystem(.greyEAE5DF) ?? .white)
@@ -72,6 +73,7 @@ class SetInfoViewController: BaseViewController {
         super.viewDidLoad()
         setUI()
         setButtonTarget()
+        setDelegate()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
@@ -139,10 +141,53 @@ extension SetInfoViewController {
     
     private func setButtonTarget() {
         dismissButton.addTarget(self, action: #selector(tapDismissButton), for: .touchUpInside)
+        setInfoButton.addTarget(self, action: #selector(tapSetInfoButton), for: .touchUpInside)
+    }
+    
+    private func setDelegate() {
+        phoneNumberTextField.delegate = self
+        nameTextField.delegate = self
     }
     
     @objc
     func tapDismissButton() {
         viewModel.dismissViewController()
+    }
+    
+    @objc
+    func tapSetInfoButton() {
+        guard let name = nameTextField.text else { return }
+        guard let phoneNumber = phoneNumberTextField.text else { return }
+        viewModel.setUserInfo(name: name, PhoneNumber: phoneNumber)
+        viewModel.dismissViewController()
+    }
+}
+
+extension SetInfoViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == phoneNumberTextField {
+            guard let text = textField.text else { return false }
+            let newLength = (text.count) + string.count - range.length
+            return !(newLength > 13)
+
+        } else {
+            guard let text = textField.text else { return false }
+            let newLength = (text.count) + string.count - range.length
+            return !(newLength > 8)
+        }
+    }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if textField == phoneNumberTextField {
+            guard let text = textField.text else { return }
+            textField.text = viewModel.convertPhoneNumberFormat(text: text)
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let name = nameTextField.text else { return }
+        guard let phoneNumber = phoneNumberTextField.text else { return }
+        setInfoButton
+            .isButtonSelected = viewModel.checkSetInfoButtonValidation(name: name, phoneNumber: phoneNumber)
     }
 }

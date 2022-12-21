@@ -33,18 +33,18 @@ class VisitorView: UIView {
         return imageView
     }()
     
-    private let visitorLabel: UILabel = {
+    let visitorLabel: UILabel = {
         let label = UILabel()
         label.font = .designSystem(weight: .regular, size: ._17)
-        label.text = "박준영"
+        label.text = "이름을 입력하세요"
         label.textColor = .designSystem(.black1E1E1E)
         return label
     }()
     
-    private let phoneNumberLabel: UILabel = {
+    let phoneNumberLabel: UILabel = {
         let label = UILabel()
         label.font = .designSystem(weight: .regular, size: ._13)
-        label.text = "010-9582-2604"
+        label.text = "전화번호를 입력하세요"
         label.textColor = .designSystem(.greyAFA08A)
         return label
     }()

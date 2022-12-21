@@ -34,7 +34,6 @@ extension SetTimeViewModel {
 }
 
 extension SetTimeViewModel {
-    
     func setCurrentTime() {
         delegate?.setCurrentTime(currentTime: self.currentTime)
     }

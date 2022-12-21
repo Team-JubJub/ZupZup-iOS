@@ -131,7 +131,7 @@ extension SetTimeViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .none
         dateFormatter.timeStyle = .short
-        dateFormatter.dateFormat = "HH:mm a"
+        dateFormatter.dateFormat = "H:mm a"
         dateFormatter.locale = Locale(identifier: "en_US")
         let date = dateFormatter.string(from: datePicker.date)
         

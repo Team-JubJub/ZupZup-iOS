@@ -112,8 +112,7 @@ extension ReservationViewController: UITableViewDelegate, UITableViewDataSource 
 }
 
 // MARK: UI
-extension ReservationViewController: SetTimeDelegate{
-    
+extension ReservationViewController {
     private func setUI() {
         view.addSubview(titleLabel)
         view.addSubview(storeInformationView)
@@ -211,10 +210,6 @@ extension ReservationViewController: SetTimeDelegate{
         storeInformationView.storeNameLabel.text = viewModel.setStoreTitle()
     }
     
-    func setCurrentTime(currentTime: String) {
-        visitTimeView.timeLabel.text = currentTime
-    }
-    
     @objc
     func didReservationCompleteButtonTapped() {
         reservationCompleteButton.isButtonSelected.toggle()
@@ -227,6 +222,17 @@ extension ReservationViewController: SetTimeDelegate{
     
     @objc
     func tapVistorView() {
-        viewModel.presentSetInfoView()
+        viewModel.presentSetInfoView(parentVC: self)
+    }
+}
+
+extension ReservationViewController: SetInfoDelegate, SetTimeDelegate {
+    func setUserInfo(name: String, PhoneNumber: String) {
+        self.visitorView.phoneNumberLabel.text = PhoneNumber
+        self.visitorView.visitorLabel.text = name
+    }
+    
+    func setCurrentTime(currentTime: String) {
+        visitTimeView.timeLabel.text = currentTime
     }
 }
