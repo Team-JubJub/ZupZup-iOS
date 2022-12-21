@@ -12,11 +12,6 @@ let project = Project.makeModule(
     name: "App",
     platform: .iOS,
     product: .app,
-    packages: [
-        .remote(
-            url: "https://github.com/firebase/firebase-ios-sdk", requirement: .upToNextMajor(from: "10.0.0")
-        )
-    ],
     dependencies: [
         .project(target: "DesignSystem", path: "../DesignSystem"),
         .project(target: "ZupZupNetwork", path: "../ZupZupNetwork"),
