@@ -88,10 +88,16 @@ extension PersonalInfoAgreeViewController {
     
     private func setButtonTargets() {
         dismissButton.addTarget(self, action: #selector(tapDismissButton), for: .touchUpInside)
+        agreeButton.addTarget(self, action: #selector(tapAgreeButton), for: .touchUpInside)
     }
     
     @objc
     func tapDismissButton() {
         viewModel.dismissViewController()
+    }
+    
+    @objc func tapAgreeButton() {
+        viewModel.dismissViewController()
+        viewModel.setAgree()
     }
 }

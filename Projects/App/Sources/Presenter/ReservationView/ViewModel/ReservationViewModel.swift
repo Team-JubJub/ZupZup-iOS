@@ -16,6 +16,11 @@ final class ReservationViewModel {
     
     private let store: Store
     
+    var phoneNumber: String = ""
+    var visitor: String = ""
+    var visitTime: String = ""
+    var isChecked: Bool = false
+    
     init(coordinator: Coordinator, store: Store) {
         self.coordinator = coordinator
         self.store = store
@@ -43,6 +48,10 @@ extension ReservationViewModel {
     
     func setStoreAddress() -> String {
         return store.address
+    }
+    
+    func checkValidation() -> Bool {
+        return !(visitor.isEmpty || visitTime.isEmpty || !isChecked || phoneNumber.isEmpty)
     }
 }
 

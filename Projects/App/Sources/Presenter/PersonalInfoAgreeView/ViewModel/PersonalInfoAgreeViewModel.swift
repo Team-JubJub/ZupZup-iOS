@@ -8,9 +8,15 @@
 
 import UIKit
 
+protocol PersonalInfoAgreeDelegate: AnyObject {
+    func setPersonalAgree(isCompleted: Bool)
+}
+
 final class PersonalInfoAgreeViewModel {
     
     var coordinator: Coordinator
+    
+    weak var delegate: PersonalInfoAgreeDelegate?
     
     init(coordinator: Coordinator) {
         self.coordinator = coordinator
@@ -19,7 +25,9 @@ final class PersonalInfoAgreeViewModel {
 
 // MARK:
 extension PersonalInfoAgreeViewModel {
-    
+    func setAgree() {
+        delegate?.setPersonalAgree(isCompleted: true)
+    }
 }
 
 // MARK: Coordinating

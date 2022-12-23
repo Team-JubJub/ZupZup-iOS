@@ -128,10 +128,7 @@ extension ReservationViewController {
         mainStackView.addArrangedSubview(visitTimeView)
         mainStackView.addArrangedSubview(visitorView)
         mainStackView.addArrangedSubview(personInformationAgreeView)
-        
-        
         // MARK: Constraints
-        
         // superView == view
         titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(DeviceInfo.screenWidth * 0.04102)
@@ -233,13 +230,24 @@ extension ReservationViewController {
     }
 }
 
-extension ReservationViewController: SetInfoDelegate, SetTimeDelegate {
+extension ReservationViewController: SetInfoDelegate, SetTimeDelegate, PersonalInfoAgreeDelegate {
+    func setPersonalAgree(isCompleted: Bool) {
+        personInformationAgreeView.checkButton.tintColor = .designSystem(.orangeE49318)
+        viewModel.isChecked = isCompleted
+        reservationCompleteButton.isButtonSelected = viewModel.checkValidation()
+    }
+    
     func setUserInfo(name: String, PhoneNumber: String) {
         self.visitorView.phoneNumberLabel.text = PhoneNumber
         self.visitorView.visitorLabel.text = name
+        viewModel.visitor = name
+        viewModel.phoneNumber = PhoneNumber
+        reservationCompleteButton.isButtonSelected = viewModel.checkValidation()
     }
     
     func setCurrentTime(currentTime: String) {
         visitTimeView.timeLabel.text = currentTime
+        viewModel.visitTime = currentTime
+        reservationCompleteButton.isButtonSelected = viewModel.checkValidation()
     }
 }

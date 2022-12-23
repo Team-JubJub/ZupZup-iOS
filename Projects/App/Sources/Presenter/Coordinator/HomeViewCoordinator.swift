@@ -96,6 +96,7 @@ extension HomeViewCoordinator: Dismissable {
 extension HomeViewCoordinator: PersonalInfoAgreeCoordinating {
     func presentPersonalInfoAgreeView(parentVC: ReservationViewController) {
         let viewModel = PersonalInfoAgreeViewModel(coordinator: self)
+        viewModel.delegate = parentVC
         let viewController = PersonalInfoAgreeViewController(viewModel: viewModel)
         viewController.modalPresentationStyle = .pageSheet
         if let sheet = viewController.sheetPresentationController {
