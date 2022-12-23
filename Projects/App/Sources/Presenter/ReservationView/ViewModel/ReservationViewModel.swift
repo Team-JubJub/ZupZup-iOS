@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import ZupZupNetwork
 
 final class ReservationViewModel {
-
+    
     var coordinator: Coordinator
+    
+    private let addReservationUseCase: AddReservationUseCase
     
     var items = [Item]()
     
@@ -21,9 +24,13 @@ final class ReservationViewModel {
     var visitTime: String = ""
     var isChecked: Bool = false
     
-    init(coordinator: Coordinator, store: Store) {
+    init(coordinator: Coordinator,
+         store: Store,
+         addReservationUseCase: AddReservationUseCase = AddReservationUseCaseImpl()
+    ) {
         self.coordinator = coordinator
         self.store = store
+        self.addReservationUseCase = addReservationUseCase
         setSelectedItems()
     }
 }
@@ -52,6 +59,17 @@ extension ReservationViewModel {
     
     func checkValidation() -> Bool {
         return !(visitor.isEmpty || visitTime.isEmpty || !isChecked || phoneNumber.isEmpty)
+    }
+    
+    func addReservationToDB(completion: @escaping (Result<Response, Error>) -> Void) {
+        addReservationUseCase.addReservation { result in
+            switch result {
+            case .success(let response):
+                completion(.success(response))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 }
 

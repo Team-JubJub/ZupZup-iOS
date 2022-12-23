@@ -10,12 +10,13 @@ import Foundation
 import FirebaseFirestoreSwift
 
 public struct AddReservationDTO: Codable {
-    @DocumentID var reserveId: String?
+    @DocumentID var id: String?
     public var customerName: String
     public var customerPhone: String
     public var state: String
     public var storeId: Int
     public var visitTime: Int
+    public var reserveId: Int
     public var cartList: [CartDTO]
     
     public struct CartDTO: Codable {
