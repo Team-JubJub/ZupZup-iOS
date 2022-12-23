@@ -36,6 +36,7 @@ extension UITextField {
             make.height.width.equalTo(15)
         }
     }
+    
     @objc
     private func clear(sender: AnyObject) {
         self.text = ""

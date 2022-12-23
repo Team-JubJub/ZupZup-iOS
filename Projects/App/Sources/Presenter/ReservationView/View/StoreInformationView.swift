@@ -10,17 +10,17 @@ import UIKit
 
 class StoreInformationView: UIView {
     
-    private let storeNameLabel: UILabel = {
+    let storeNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "가게 A"
+        label.text = ""
         label.font = .designSystem(weight: .regular, size: ._17)
         label.textColor = .designSystem(.black1E1E1E)
         return label
     }()
     
-    private let storeAddressLabel: UILabel = {
+    let storeAddressLabel: UILabel = {
         let label = UILabel()
-        label.text = "부산광역시 장전동 123-48 1층"
+        label.text = ""
         label.font = .designSystem(weight: .regular, size: ._13)
         label.textColor = .designSystem(.greyAFA08A)
         return label

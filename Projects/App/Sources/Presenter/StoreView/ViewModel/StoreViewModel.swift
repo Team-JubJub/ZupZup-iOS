@@ -30,9 +30,9 @@ extension StoreViewModel {
 }
 
 extension StoreViewModel {
-    func pushReservationViewController(items: [Item]) {
+    func pushReservationViewController(store: Store) {
         guard let coordinator = coordinator as? ReservationViewCoordinating else { return }
-        coordinator.pushReservationViewController(items: items)
+        coordinator.pushReservationViewController(store: store)
     }
 }
 

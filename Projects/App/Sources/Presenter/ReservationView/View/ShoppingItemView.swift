@@ -40,17 +40,17 @@ class ShoppingItemView: UIView {
         return label
     }()
     
-    private let itemCountLabel: UILabel = {
+    let itemCountLabel: UILabel = {
         let label = UILabel()
-        label.text = "0개"
+        label.text = ""
         label.textColor = .designSystem(.black1E1E1E)
         label.font = .designSystem(weight: .regular, size: ._17)
         return label
     }()
     
-    private let totalPriceLabel: UILabel = {
+    let totalPriceLabel: UILabel = {
         let label = UILabel()
-        label.text = "9000원"
+        label.text = ""
         label.textColor = .designSystem(.greyAFA08A)
         label.font = .designSystem(weight: .regular, size: ._13)
         return label

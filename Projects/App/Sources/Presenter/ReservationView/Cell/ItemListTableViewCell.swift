@@ -16,7 +16,7 @@ class ItemListTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = .designSystem(weight: .regular, size: ._15)
         label.textColor = .designSystem(.greyAFA08A)
-        label.text = "제품명 1"
+        label.text = ""
         return label
     }()
     
@@ -24,7 +24,7 @@ class ItemListTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = .designSystem(weight: .regular, size: ._15)
         label.textColor = .designSystem(.greyAFA08A)
-        label.text = "3000원"
+        label.text = ""
         return label
     }()
     
@@ -53,5 +53,10 @@ extension ItemListTableViewCell {
             make.right.equalToSuperview().inset(DeviceInfo.verticalPadding)
             make.centerY.equalToSuperview()
         }
+    }
+    
+    func configure(itemTitle: String, itemPrice: Int, numOfItem: Int) {
+        itemTitleLabel.text = itemTitle + " \(numOfItem)개"
+        itemPriceLabel.text = "\(itemPrice * numOfItem)원"
     }
 }

@@ -14,22 +14,62 @@ final class ReservationViewModel {
     
     var items = [Item]()
     
-    init(coordinator: Coordinator, items: [Item]) {
-        self.items = items
+    private let store: Store
+    
+    var phoneNumber: String = ""
+    var visitor: String = ""
+    var visitTime: String = ""
+    var isChecked: Bool = false
+    
+    init(coordinator: Coordinator, store: Store) {
         self.coordinator = coordinator
+        self.store = store
+        setSelectedItems()
+    }
+}
+
+extension ReservationViewModel {
+    func setSelectedItems() {
+        self.items = store.items.filter { $0.numOfSelected > 0 }
+    }
+    
+    func setTotalPrice() -> Int {
+        let totalPriceArray = items.map { $0.numOfSelected * $0.discountPrice }
+        return totalPriceArray.reduce(0, +)
+    }
+    
+    func setTotalNumOfItems() -> Int {
+        return items.map { $0.numOfSelected }.reduce(0, +)
+    }
+    
+    func setStoreTitle() -> String {
+        return store.storeName
+    }
+    
+    func setStoreAddress() -> String {
+        return store.address
+    }
+    
+    func checkValidation() -> Bool {
+        return !(visitor.isEmpty || visitTime.isEmpty || !isChecked || phoneNumber.isEmpty)
     }
 }
 
 // MARK: Coordinator
 extension ReservationViewModel {
     // MARK: 시간 설정 화면으로 전환
-    func presentSetTimeView() {
+    func presentSetTimeView(parentVC: ReservationViewController) {
         guard let coordinator = coordinator as? SetTimeViewCoordinating else { return }
-        coordinator.presentSetTimeView()
+        coordinator.presentSetTimeView(parentVC: parentVC)
     }
     // MARK: 정보 설정 화면으로 전환
-    func presentSetInfoView() {
+    func presentSetInfoView(parentVC: ReservationViewController) {
         guard let coordinator = coordinator as? SetInfoViewCoordinating else { return }
-        coordinator.presentSetInfoView()
+        coordinator.presentSetInfoView(parentVC: parentVC)
+    }
+    
+    func presentPersonalInfoAgreeView(parentVC: ReservationViewController) {
+        guard let coordinator = coordinator as? PersonalInfoAgreeCoordinating else { return }
+        coordinator.presentPersonalInfoAgreeView(parentVC: parentVC)
     }
 }

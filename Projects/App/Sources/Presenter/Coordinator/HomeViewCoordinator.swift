@@ -45,8 +45,8 @@ extension HomeViewCoordinator: StoreViewCoordinating {
 
 // MARK: ReservationViewController로 전환
 extension HomeViewCoordinator: ReservationViewCoordinating {
-    func pushReservationViewController(items: [Item]) {
-        let viewModel = ReservationViewModel(coordinator: self, items: items)
+    func pushReservationViewController(store: Store) {
+        let viewModel = ReservationViewModel(coordinator: self, store: store)
         let viewController = ReservationViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)
     }
@@ -54,8 +54,9 @@ extension HomeViewCoordinator: ReservationViewCoordinating {
 
 // MARK: SetInfoViewController Present
 extension HomeViewCoordinator: SetTimeViewCoordinating {
-    func presentSetTimeView() {
+    func presentSetTimeView(parentVC: ReservationViewController) {
         let viewModel = SetTimeViewModel(coordinator: self)
+        viewModel.delegate = parentVC
         let viewController = SetTimeViewController(viewModel: viewModel)
         
         viewController.modalPresentationStyle = .pageSheet
@@ -67,8 +68,9 @@ extension HomeViewCoordinator: SetTimeViewCoordinating {
 }
 
 extension HomeViewCoordinator: SetInfoViewCoordinating {
-    func presentSetInfoView() {
+    func presentSetInfoView(parentVC: ReservationViewController) {
         let viewModel = SetInfoViewModel(coordinator: self)
+        viewModel.delegate = parentVC
         let viewController = SetInfoViewController(viewModel: viewModel)
         
         viewController.modalPresentationStyle = .pageSheet
@@ -88,5 +90,18 @@ extension HomeViewCoordinator: Popable {
 extension HomeViewCoordinator: Dismissable {
     func dismissViewController() {
         navigationController.dismiss(animated: true)
+    }
+}
+
+extension HomeViewCoordinator: PersonalInfoAgreeCoordinating {
+    func presentPersonalInfoAgreeView(parentVC: ReservationViewController) {
+        let viewModel = PersonalInfoAgreeViewModel(coordinator: self)
+        viewModel.delegate = parentVC
+        let viewController = PersonalInfoAgreeViewController(viewModel: viewModel)
+        viewController.modalPresentationStyle = .pageSheet
+        if let sheet = viewController.sheetPresentationController {
+            sheet.detents = [.large()]
+        }
+        navigationController.present(viewController, animated: true)
     }
 }

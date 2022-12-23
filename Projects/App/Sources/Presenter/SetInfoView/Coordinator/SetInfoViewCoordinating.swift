@@ -9,5 +9,5 @@
 import Foundation
 
 protocol SetInfoViewCoordinating {
-    func presentSetInfoView()
+    func presentSetInfoView(parentVC: ReservationViewController)
 }

@@ -83,8 +83,9 @@ class ReservationViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
-        setReservationCompleteButtonTarget()
+        setButtonTargets()
         setTapGesture()
+        configureLabels()
     }
 }
 
@@ -96,6 +97,12 @@ extension ReservationViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ItemListTableViewCell.identifier, for: indexPath) as? ItemListTableViewCell else { return UITableViewCell() }
+        let item = viewModel.items[indexPath.row]
+        cell.configure(
+            itemTitle: item.itemName,
+            itemPrice: item.discountPrice,
+            numOfItem: item.numOfSelected
+        )
         return cell
     }
     
@@ -121,10 +128,7 @@ extension ReservationViewController {
         mainStackView.addArrangedSubview(visitTimeView)
         mainStackView.addArrangedSubview(visitorView)
         mainStackView.addArrangedSubview(personInformationAgreeView)
-        
-        
         // MARK: Constraints
-        
         // superView == view
         titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(DeviceInfo.screenWidth * 0.04102)
@@ -151,7 +155,6 @@ extension ReservationViewController {
         }
         
         // superView == mainStackView
-        
         visitTimeView.snp.makeConstraints { make in
             make.width.equalTo(DeviceInfo.screenWidth * 358 / 390)
             make.height.equalTo(DeviceInfo.screenHeight * 74 / 844)
@@ -186,8 +189,10 @@ extension ReservationViewController {
         }
     }
     
-    private func setReservationCompleteButtonTarget() {
+    private func setButtonTargets() {
         reservationCompleteButton.addTarget(self, action: #selector(didReservationCompleteButtonTapped), for: .touchUpInside)
+        personInformationAgreeView.moreInformationButton.addTarget(self, action: #selector(tapPersonalInfoAgreeButton), for: .touchUpInside)
+        personInformationAgreeView.checkButton.addTarget(self, action: #selector(tapPersonalInfoAgreeButton), for: .touchUpInside)
     }
     
     private func setTapGesture() {
@@ -197,6 +202,13 @@ extension ReservationViewController {
         visitorView.addGestureRecognizer(tapVisitorGesture)
     }
     
+    private func configureLabels() {
+        shoppingItemView.totalPriceLabel.text = "\(viewModel.setTotalPrice())원"
+        shoppingItemView.itemCountLabel.text = "\(viewModel.setTotalNumOfItems())개"
+        storeInformationView.storeAddressLabel.text = viewModel.setStoreAddress()
+        storeInformationView.storeNameLabel.text = viewModel.setStoreTitle()
+    }
+    
     @objc
     func didReservationCompleteButtonTapped() {
         reservationCompleteButton.isButtonSelected.toggle()
@@ -204,13 +216,38 @@ extension ReservationViewController {
     
     @objc
     func tapVisitTimeView() {
-        print("tapVisitTimeView")
-        viewModel.presentSetTimeView()
+        viewModel.presentSetTimeView(parentVC: self)
     }
     
     @objc
     func tapVistorView() {
-        print("tapVistorView")
-        viewModel.presentSetInfoView()
+        viewModel.presentSetInfoView(parentVC: self)
+    }
+    
+    @objc
+    func tapPersonalInfoAgreeButton() {
+        viewModel.presentPersonalInfoAgreeView(parentVC: self)
+    }
+}
+
+extension ReservationViewController: SetInfoDelegate, SetTimeDelegate, PersonalInfoAgreeDelegate {
+    func setPersonalAgree(isCompleted: Bool) {
+        personInformationAgreeView.checkButton.tintColor = .designSystem(.orangeE49318)
+        viewModel.isChecked = isCompleted
+        reservationCompleteButton.isButtonSelected = viewModel.checkValidation()
+    }
+    
+    func setUserInfo(name: String, PhoneNumber: String) {
+        self.visitorView.phoneNumberLabel.text = PhoneNumber
+        self.visitorView.visitorLabel.text = name
+        viewModel.visitor = name
+        viewModel.phoneNumber = PhoneNumber
+        reservationCompleteButton.isButtonSelected = viewModel.checkValidation()
+    }
+    
+    func setCurrentTime(currentTime: String) {
+        visitTimeView.timeLabel.text = currentTime
+        viewModel.visitTime = currentTime
+        reservationCompleteButton.isButtonSelected = viewModel.checkValidation()
     }
 }

@@ -18,14 +18,15 @@ class PersonInformationAgreeView: UIView {
         return label
     }()
     
-    private let moreInformationButton: UIButton = {
+    let moreInformationButton: UIButton = {
         let button = UIButton()
         button.setTitle("자세히", for: .normal)
+        button.titleLabel?.font = .designSystem(weight: .regular, size: ._11)
         button.tintColor = .designSystem(.greyFFFDFA)
         return button
     }()
     
-    private let checkButton: UIButton = {
+    let checkButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "checkmark"), for: .normal)
         button.tintColor = .designSystem(.black1E1E1E)
@@ -71,10 +72,10 @@ extension PersonInformationAgreeView {
         }
         
         moreInformationButton.snp.makeConstraints { make in
-            make.width.equalTo(DeviceInfo.screenWidth * 28 / 390)
+            make.width.equalTo(DeviceInfo.screenWidth * 33 / 390)
             make.height.equalTo(DeviceInfo.screenHeight * 13 / 844)
             make.centerY.equalToSuperview()
-            make.right.equalTo(checkButton.snp.left).offset(DeviceInfo.horizontalPadding)
+            make.right.equalTo(checkButton.snp.left).offset(-DeviceInfo.horizontalPadding)
         }
     }
 }
