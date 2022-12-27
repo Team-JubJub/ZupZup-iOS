@@ -90,4 +90,14 @@ extension ReservationViewModel {
         guard let coordinator = coordinator as? PersonalInfoAgreeCoordinating else { return }
         coordinator.presentPersonalInfoAgreeView(parentVC: parentVC)
     }
+    
+    func pushReservationCompletedView() {
+        guard let coordinator = coordinator as? ReservationCompletedViewCoordinating else { return }
+        coordinator.pushReservationCompletedViewController(store: store,
+                                                           items: items,
+                                                           phoneNumber: phoneNumber,
+                                                           visitor: visitor,
+                                                           visitTime: visitTime
+        )
+    }
 }

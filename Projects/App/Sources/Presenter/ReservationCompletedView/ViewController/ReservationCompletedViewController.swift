@@ -1,29 +1,42 @@
 //
-//  ReservationViewController.swift
-//  App
+//  ReservationCompletedViewController.swift
+//  AppTests
 //
-//  Created by YeongJin Jeong on 2022/11/09.
+//  Created by YeongJin Jeong on 2022/11/04.
 //  Copyright © 2022 ZupZup. All rights reserved.
 //
 
 import UIKit
+import SnapKit
+import DesignSystem
 
-class ReservationViewController: BaseViewController {
+class ReservationCompletedViewController: BaseViewController {
     
-    // MARK: UI component
-    private var viewModel: ReservationViewModel
+    private var viewModel: ReservationCompletedViewModel
     
-    private let titleLabel = ZupzupTitleLabel(title: "예약하기")
+    private let titleLabel = ZupzupTitleLabel(title: "예약완료")
     
     private let storeInformationView = StoreInformationView()
     
     private let shoppingItemView = ShoppingItemView()
     
-    private let visitTimeView = VisitTimeView()
+    private let visitTimeView: VisitTimeView = {
+        let visitTimeView = VisitTimeView()
+        visitTimeView.rightChevronImageView.isHidden = true
+        return visitTimeView
+    }()
     
-    private let visitorView = VisitorView()
+    private let visitorView: VisitorView = {
+        let visitorView = VisitorView()
+        visitorView.rightChevronImageView.isHidden = true
+        return visitorView
+    }()
     
-    private let personInformationAgreeView = PersonInformationAgreeView()
+    private let goToHomeButton = {
+        let button = ZupzupButton(title: "홈으로")
+        button.isButtonSelected = true
+        return button
+    }()
     
     private let mainStackView: UIStackView = {
         let stackView = UIStackView()
@@ -67,10 +80,8 @@ class ReservationViewController: BaseViewController {
         return tableView
     }()
     
-    private let reservationCompleteButton = ZupzupButton(title: "예약 완료하기")
-    
     // MARK: Initializer
-    init(viewModel: ReservationViewModel) {
+    init(viewModel: ReservationCompletedViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -84,14 +95,109 @@ class ReservationViewController: BaseViewController {
         super.viewDidLoad()
         setUI()
         setButtonTargets()
-        setTapGesture()
         configureLabels()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.navigationBar.isHidden = false
+    }
+}
+
+extension ReservationCompletedViewController {
+    private func setUI() {
+        view.addSubview(titleLabel)
+        view.addSubview(storeInformationView)
+        view.addSubview(scrollView)
+        view.addSubview(goToHomeButton)
+        
+        shoppingItemStackView.addArrangedSubview(shoppingItemView)
+        shoppingItemStackView.addArrangedSubview(itemListTableView)
+        
+        scrollView.addSubview(mainStackView)
+        
+        mainStackView.addArrangedSubview(shoppingItemStackView)
+        mainStackView.addArrangedSubview(visitTimeView)
+        mainStackView.addArrangedSubview(visitorView)
+    
+        titleLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(DeviceInfo.horizontalPadding)
+            make.top.equalToSuperview().offset(DeviceInfo.screenHeight * 93 / 844)
+        }
+        
+        storeInformationView.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(DeviceInfo.screenHeight * 36 / 844)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview()
+            make.height.equalTo(DeviceInfo.screenHeight * 76 / 844)
+        }
+        
+        scrollView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview()
+            make.top.equalTo(storeInformationView.snp.bottom).offset(DeviceInfo.screenHeight * 24 / 844)
+            make.bottom.equalToSuperview().inset(DeviceInfo.screenHeight * 120 / 844)
+        }
+        
+        mainStackView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+            make.centerX.equalToSuperview()
+        }
+        
+        visitTimeView.snp.makeConstraints { make in
+            make.width.equalTo(DeviceInfo.screenWidth * 358 / 390)
+            make.height.equalTo(DeviceInfo.screenHeight * 74 / 844)
+        }
+        
+        visitorView.snp.makeConstraints { make in
+            make.width.equalTo(DeviceInfo.screenWidth * 358 / 390)
+            make.height.equalTo(DeviceInfo.screenHeight * 97 / 844)
+        }
+        
+        shoppingItemView.snp.makeConstraints { make in
+            make.width.equalTo(DeviceInfo.screenWidth * 358 / 390)
+            make.height.equalTo(DeviceInfo.screenHeight * 97 / 844)
+        }
+        
+        itemListTableView.snp.makeConstraints { make in
+            make.width.equalTo(DeviceInfo.screenWidth * 358 / 390)
+            make.height.equalTo(Int(DeviceInfo.screenHeight * 37 / 844) * (viewModel.items.count))
+        }
+        
+        goToHomeButton.snp.makeConstraints { make in
+            make.width.equalTo(DeviceInfo.screenWidth * 358 / 390)
+            make.height.equalTo(DeviceInfo.screenHeight * 57 / 844)
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().inset(DeviceInfo.verticalPadding * 2)
+        }
+    }
+    
+    private func setButtonTargets() {
+        goToHomeButton.addTarget(self, action: #selector(tapGoToHomeButton), for: .touchUpInside)
+    }
+    
+    private func configureLabels() {
+        shoppingItemView.totalPriceLabel.text = "\(viewModel.setTotalPrice())원"
+        shoppingItemView.itemCountLabel.text = "\(viewModel.setTotalNumOfItems())개"
+        storeInformationView.storeAddressLabel.text = viewModel.setStoreAddress()
+        storeInformationView.storeNameLabel.text = viewModel.setStoreTitle()
+        visitorView.phoneNumberLabel.text = viewModel.phoneNumber
+        visitorView.visitorLabel.text = viewModel.visitor
+        visitTimeView.timeLabel.text = viewModel.visitTime
+    }
+    
+    @objc
+    func tapGoToHomeButton() {
+        viewModel.popToRootView()
     }
 }
 
 // MARK: TableView Delegate
-extension ReservationViewController: UITableViewDelegate, UITableViewDataSource {
+extension ReservationCompletedViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // TODO: Fix
         return viewModel.items.count
     }
     
@@ -111,154 +217,4 @@ extension ReservationViewController: UITableViewDelegate, UITableViewDataSource 
     }
 }
 
-// MARK: UI
-extension ReservationViewController {
-    private func setUI() {
-        view.addSubview(titleLabel)
-        view.addSubview(storeInformationView)
-        view.addSubview(scrollView)
-        view.addSubview(reservationCompleteButton)
-        
-        shoppingItemStackView.addArrangedSubview(shoppingItemView)
-        shoppingItemStackView.addArrangedSubview(itemListTableView)
-        
-        scrollView.addSubview(mainStackView)
-        
-        mainStackView.addArrangedSubview(shoppingItemStackView)
-        mainStackView.addArrangedSubview(visitTimeView)
-        mainStackView.addArrangedSubview(visitorView)
-        mainStackView.addArrangedSubview(personInformationAgreeView)
-        // MARK: Constraints
-        // superView == view
-        titleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(DeviceInfo.screenWidth * 0.04102)
-            make.top.equalToSuperview().offset(DeviceInfo.screenHeight * 0.1105826397)
-        }
-        
-        storeInformationView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(DeviceInfo.screenHeight * 36 / 844)
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview()
-            make.height.equalTo(DeviceInfo.screenHeight * 76 / 844)
-        }
-        
-        scrollView.snp.makeConstraints { make in
-            make.left.right.equalToSuperview()
-            make.top.equalTo(storeInformationView.snp.bottom).offset(DeviceInfo.screenHeight * 24 / 844)
-            make.bottom.equalToSuperview().inset(DeviceInfo.screenHeight * 120 / 844)
-        }
-        
-        // superView == scrollView
-        mainStackView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-            make.centerX.equalToSuperview()
-        }
-        
-        // superView == mainStackView
-        visitTimeView.snp.makeConstraints { make in
-            make.width.equalTo(DeviceInfo.screenWidth * 358 / 390)
-            make.height.equalTo(DeviceInfo.screenHeight * 74 / 844)
-        }
-        
-        visitorView.snp.makeConstraints { make in
-            make.width.equalTo(DeviceInfo.screenWidth * 358 / 390)
-            make.height.equalTo(DeviceInfo.screenHeight * 97 / 844)
-        }
-        
-        // superView == shoppingItemStackView
-        shoppingItemView.snp.makeConstraints { make in
-            make.width.equalTo(DeviceInfo.screenWidth * 358 / 390)
-            make.height.equalTo(DeviceInfo.screenHeight * 97 / 844)
-        }
-        
-        itemListTableView.snp.makeConstraints { make in
-            make.width.equalTo(DeviceInfo.screenWidth * 358 / 390)
-            make.height.equalTo(Int(DeviceInfo.screenHeight * 37 / 844) * (viewModel.items.count))
-        }
-        
-        personInformationAgreeView.snp.makeConstraints { make in
-            make.width.equalTo(DeviceInfo.screenWidth * 358 / 390)
-            make.height.equalTo(DeviceInfo.screenHeight * 64 / 844)
-        }
-        
-        reservationCompleteButton.snp.makeConstraints { make in
-            make.width.equalTo(DeviceInfo.screenWidth * 358 / 390)
-            make.height.equalTo(DeviceInfo.screenHeight * 57 / 844)
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().inset(DeviceInfo.verticalPadding * 2)
-        }
-    }
-    
-    private func setButtonTargets() {
-        reservationCompleteButton.addTarget(self, action: #selector(didReservationCompleteButtonTapped), for: .touchUpInside)
-        personInformationAgreeView.moreInformationButton.addTarget(self, action: #selector(tapPersonalInfoAgreeButton), for: .touchUpInside)
-        personInformationAgreeView.checkButton.addTarget(self, action: #selector(tapPersonalInfoAgreeButton), for: .touchUpInside)
-    }
-    
-    private func setTapGesture() {
-        let tapVisitTimeGesture = UITapGestureRecognizer(target: self, action: #selector(tapVisitTimeView))
-        let tapVisitorGesture = UITapGestureRecognizer(target: self, action: #selector(tapVistorView))
-        visitTimeView.addGestureRecognizer(tapVisitTimeGesture)
-        visitorView.addGestureRecognizer(tapVisitorGesture)
-    }
-    
-    private func configureLabels() {
-        shoppingItemView.totalPriceLabel.text = "\(viewModel.setTotalPrice())원"
-        shoppingItemView.itemCountLabel.text = "\(viewModel.setTotalNumOfItems())개"
-        storeInformationView.storeAddressLabel.text = viewModel.setStoreAddress()
-        storeInformationView.storeNameLabel.text = viewModel.setStoreTitle()
-    }
-    
-    @objc
-    func didReservationCompleteButtonTapped() {
-        reservationCompleteButton.isButtonSelected.toggle()
-        viewModel.addReservationToDB { result in
-            switch result {
-            case .success(_):
-                // TODO: 화면전환
-                self.viewModel.pushReservationCompletedView()
-                print("success")
-            case .failure(let error):
-                // TODO: 화면 전환
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    @objc
-    func tapVisitTimeView() {
-        viewModel.presentSetTimeView(parentVC: self)
-    }
-    
-    @objc
-    func tapVistorView() {
-        viewModel.presentSetInfoView(parentVC: self)
-    }
-    
-    @objc
-    func tapPersonalInfoAgreeButton() {
-        viewModel.presentPersonalInfoAgreeView(parentVC: self)
-    }
-}
 
-extension ReservationViewController: SetInfoDelegate, SetTimeDelegate, PersonalInfoAgreeDelegate {
-    func setPersonalAgree(isCompleted: Bool) {
-        personInformationAgreeView.checkButton.tintColor = .designSystem(.orangeE49318)
-        viewModel.isChecked = isCompleted
-        reservationCompleteButton.isButtonSelected = viewModel.checkValidation()
-    }
-    
-    func setUserInfo(name: String, PhoneNumber: String) {
-        self.visitorView.phoneNumberLabel.text = PhoneNumber
-        self.visitorView.visitorLabel.text = name
-        viewModel.visitor = name
-        viewModel.phoneNumber = PhoneNumber
-        reservationCompleteButton.isButtonSelected = viewModel.checkValidation()
-    }
-    
-    func setCurrentTime(currentTime: String) {
-        visitTimeView.timeLabel.text = currentTime
-        viewModel.visitTime = currentTime
-        reservationCompleteButton.isButtonSelected = viewModel.checkValidation()
-    }
-}

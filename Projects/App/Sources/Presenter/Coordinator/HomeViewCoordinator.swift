@@ -16,6 +16,10 @@ protocol Dismissable {
     func dismissViewController()
 }
 
+protocol PopToRoot {
+    func popToRootViewController()
+}
+
 final class HomeViewCoordinator: Coordinator {
     
     var navigationController: UINavigationController
@@ -81,15 +85,24 @@ extension HomeViewCoordinator: SetInfoViewCoordinating {
     }
 }
 
-extension HomeViewCoordinator: Popable {
-    func popViewController() {
-        navigationController.popViewController(animated: true)
-    }
-}
-
-extension HomeViewCoordinator: Dismissable {
-    func dismissViewController() {
-        navigationController.dismiss(animated: true)
+extension HomeViewCoordinator: ReservationCompletedViewCoordinating {
+    func pushReservationCompletedViewController(
+        store: Store,
+        items: [Item],
+        phoneNumber: String,
+        visitor: String,
+        visitTime: String
+    ) {
+        let viewModel = ReservationCompletedViewModel(
+            coordinator: self,
+            store: store,
+            items: items,
+            phoneNumber: phoneNumber,
+            visitor: visitor,
+            visitTime: visitTime
+        )
+        let viewController = ReservationCompletedViewController(viewModel: viewModel)
+        navigationController.pushViewController(viewController, animated: true)
     }
 }
 
@@ -105,3 +118,22 @@ extension HomeViewCoordinator: PersonalInfoAgreeCoordinating {
         navigationController.present(viewController, animated: true)
     }
 }
+
+extension HomeViewCoordinator: Popable {
+    func popViewController() {
+        navigationController.popViewController(animated: true)
+    }
+}
+
+extension HomeViewCoordinator: Dismissable {
+    func dismissViewController() {
+        navigationController.dismiss(animated: true)
+    }
+}
+
+extension HomeViewCoordinator: PopToRoot {
+    func popToRootViewController() {
+        navigationController.popToRootViewController(animated: true)
+    }
+}
+
