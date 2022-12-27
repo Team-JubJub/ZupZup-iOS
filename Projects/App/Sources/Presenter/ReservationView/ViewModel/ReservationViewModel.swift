@@ -7,23 +7,29 @@
 //
 
 import UIKit
+import ZupZupNetwork
 
 final class ReservationViewModel {
-
+    
     var coordinator: Coordinator
+    
+    private let addReservationUseCase: AddReservationUseCase
     
     var items = [Item]()
     
     private let store: Store
     
-    var phoneNumber: String = ""
-    var visitor: String = ""
-    var visitTime: String = ""
+    var customer = Customer()
+    
     var isChecked: Bool = false
     
-    init(coordinator: Coordinator, store: Store) {
+    init(coordinator: Coordinator,
+         store: Store,
+         addReservationUseCase: AddReservationUseCase = AddReservationUseCaseImpl()
+    ) {
         self.coordinator = coordinator
         self.store = store
+        self.addReservationUseCase = addReservationUseCase
         setSelectedItems()
     }
 }
@@ -51,7 +57,18 @@ extension ReservationViewModel {
     }
     
     func checkValidation() -> Bool {
-        return !(visitor.isEmpty || visitTime.isEmpty || !isChecked || phoneNumber.isEmpty)
+        return !(customer.phoneNumber.isEmpty || customer.visitTime.isEmpty || !isChecked || customer.phoneNumber.isEmpty)
+    }
+    
+    func addReservationToDB(completion: @escaping (Result<Response, Error>) -> Void) {
+        addReservationUseCase.addReservation(customer: customer, store: store, items: items) { result in
+            switch result {
+            case .success(let response):
+                completion(.success(response))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
 }
 
@@ -71,5 +88,13 @@ extension ReservationViewModel {
     func presentPersonalInfoAgreeView(parentVC: ReservationViewController) {
         guard let coordinator = coordinator as? PersonalInfoAgreeCoordinating else { return }
         coordinator.presentPersonalInfoAgreeView(parentVC: parentVC)
+    }
+    
+    func pushReservationCompletedView() {
+        guard let coordinator = coordinator as? ReservationCompletedViewCoordinating else { return }
+        coordinator.pushReservationCompletedViewController(store: store,
+                                                           items: items,
+                                                           customer: customer
+        )
     }
 }

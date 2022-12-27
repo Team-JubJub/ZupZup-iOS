@@ -41,7 +41,7 @@ class VisitTimeView: UIView {
         return label
     }()
     
-    private let rightChevronImageView: UIImageView = {
+    let rightChevronImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "chevron.right")
         imageView.tintColor = .designSystem(.greyAFA08A)

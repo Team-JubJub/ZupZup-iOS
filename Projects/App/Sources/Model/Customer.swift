@@ -10,9 +10,13 @@ import Foundation
 
 // MARK: 사용자
 public struct Customer {
-    let userID: Int
+    public var phoneNumber: String = ""
+    public var vistor: String = ""
+    public var visitTime: String = ""
     
-    public init(userID: Int) {
-        self.userID = userID
-    }
+//    public init(phoneNumber: String, vistor: String, visitTime: String) {
+//        self.phoneNumber = phoneNumber
+//        self.vistor = vistor
+//        self.visitTime = visitTime
+//    }
 }
