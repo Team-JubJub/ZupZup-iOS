@@ -19,9 +19,8 @@ final class ReservationViewModel {
     
     private let store: Store
     
-    var phoneNumber: String = ""
-    var visitor: String = ""
-    var visitTime: String = ""
+    var customer = Customer()
+    
     var isChecked: Bool = false
     
     init(coordinator: Coordinator,
@@ -58,11 +57,11 @@ extension ReservationViewModel {
     }
     
     func checkValidation() -> Bool {
-        return !(visitor.isEmpty || visitTime.isEmpty || !isChecked || phoneNumber.isEmpty)
+        return !(customer.phoneNumber.isEmpty || customer.visitTime.isEmpty || !isChecked || customer.phoneNumber.isEmpty)
     }
     
     func addReservationToDB(completion: @escaping (Result<Response, Error>) -> Void) {
-        addReservationUseCase.addReservation { result in
+        addReservationUseCase.addReservation(customer: customer, store: store, items: items) { result in
             switch result {
             case .success(let response):
                 completion(.success(response))
@@ -95,9 +94,7 @@ extension ReservationViewModel {
         guard let coordinator = coordinator as? ReservationCompletedViewCoordinating else { return }
         coordinator.pushReservationCompletedViewController(store: store,
                                                            items: items,
-                                                           phoneNumber: phoneNumber,
-                                                           visitor: visitor,
-                                                           visitTime: visitTime
+                                                           customer: customer
         )
     }
 }

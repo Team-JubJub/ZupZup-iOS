@@ -12,8 +12,6 @@ protocol ReservationCompletedViewCoordinating {
     func pushReservationCompletedViewController(
         store: Store,
         items: [Item],
-        phoneNumber: String,
-        visitor: String,
-        visitTime: String
+        customer: Customer
     )
 }

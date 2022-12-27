@@ -86,20 +86,17 @@ extension HomeViewCoordinator: SetInfoViewCoordinating {
 }
 
 extension HomeViewCoordinator: ReservationCompletedViewCoordinating {
+    
     func pushReservationCompletedViewController(
         store: Store,
         items: [Item],
-        phoneNumber: String,
-        visitor: String,
-        visitTime: String
+        customer: Customer
     ) {
         let viewModel = ReservationCompletedViewModel(
             coordinator: self,
             store: store,
             items: items,
-            phoneNumber: phoneNumber,
-            visitor: visitor,
-            visitTime: visitTime
+            customer: customer
         )
         let viewController = ReservationCompletedViewController(viewModel: viewModel)
         navigationController.pushViewController(viewController, animated: true)

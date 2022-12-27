@@ -183,9 +183,9 @@ extension ReservationCompletedViewController {
         shoppingItemView.itemCountLabel.text = "\(viewModel.setTotalNumOfItems())개"
         storeInformationView.storeAddressLabel.text = viewModel.setStoreAddress()
         storeInformationView.storeNameLabel.text = viewModel.setStoreTitle()
-        visitorView.phoneNumberLabel.text = viewModel.phoneNumber
-        visitorView.visitorLabel.text = viewModel.visitor
-        visitTimeView.timeLabel.text = viewModel.visitTime
+        visitorView.phoneNumberLabel.text = viewModel.customer.phoneNumber
+        visitorView.visitorLabel.text = viewModel.customer.vistor
+        visitTimeView.timeLabel.text = viewModel.customer.visitTime
     }
     
     @objc

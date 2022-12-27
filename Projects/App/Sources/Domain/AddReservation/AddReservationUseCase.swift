@@ -11,7 +11,11 @@ import ZupZupNetwork
 import CoreLocation
 
 protocol AddReservationUseCase {
-    func addReservation(completion: @escaping (Result<Response,Error>) -> Void)
+    func addReservation(
+        customer: Customer,
+        store: Store,
+        items: [Item],
+        completion: @escaping (Result<Response,Error>) -> Void)
 }
 
 final class AddReservationUseCaseImpl: AddReservationUseCase {
@@ -23,14 +27,44 @@ final class AddReservationUseCaseImpl: AddReservationUseCase {
     }
     
     // TODO: Completion Handler
-    func addReservation(completion: @escaping (Result<Response,Error>) -> Void) {
-        addReservationRepsitory.addReservation { result  in
-            switch result {
-            case .success(let response):
-                completion(.success(response))
-            case .failure(let error):
-                completion(.failure(error))
+    func addReservation(
+        customer: Customer,
+        store: Store,
+        items: [Item],
+        completion: @escaping (Result<Response,Error>) -> Void) {
+            
+            let cartDTO = items.map { item in
+                return AddReservationDTO.CartDTO(
+                    itemId: item.itemId,
+                    storeId: item.storeId,
+                    amount: item.numOfSelected,
+                    name: item.itemName,
+                    salesPrice: item.discountPrice
+                )
+            }
+            
+            let reservationDTO = AddReservationDTO (
+                customerName: customer.vistor,
+                customerPhone: customer.phoneNumber,
+                state: "NEW",
+                storeId: store.storeId,
+                visitTime: dateToInt(visitTime: customer.visitTime),
+                reserveId: 1,
+                cartList: cartDTO
+            )
+            
+            addReservationRepsitory.addReservation(addReservationDTO: reservationDTO) { result  in
+                switch result {
+                case .success(let response):
+                    completion(.success(response))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
             }
         }
+    
+    func dateToInt(visitTime: String) -> Int {
+        let time = visitTime.filter { $0.isNumber }
+        return Int(time) ?? 0
     }
 }

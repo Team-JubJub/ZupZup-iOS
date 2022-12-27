@@ -25,5 +25,32 @@ public struct AddReservationDTO: Codable {
         public var amount: Int
         public var name: String
         public var salesPrice: Int
+        
+        public init(itemId: Int, storeId: Int, amount: Int, name: String, salesPrice: Int) {
+            self.itemId = itemId
+            self.storeId = storeId
+            self.amount = amount
+            self.name = name
+            self.salesPrice = salesPrice
+        }
+    }
+    
+    public init(id: String? = nil,
+                customerName: String,
+                customerPhone: String,
+                state: String,
+                storeId: Int,
+                visitTime: Int,
+                reserveId: Int,
+                cartList: [CartDTO]
+    ) {
+        self.id = id
+        self.customerName = customerName
+        self.customerPhone = customerPhone
+        self.state = state
+        self.storeId = storeId
+        self.visitTime = visitTime
+        self.reserveId = reserveId
+        self.cartList = cartList
     }
 }

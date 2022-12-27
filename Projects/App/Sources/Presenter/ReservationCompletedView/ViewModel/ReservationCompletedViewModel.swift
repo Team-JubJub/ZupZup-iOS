@@ -16,24 +16,18 @@ final class ReservationCompletedViewModel {
     
     var items: [Item]
     
-    let phoneNumber: String
-    let visitor: String
-    let visitTime: String
+    let customer: Customer
     
     init(
         coordinator: Coordinator,
         store: Store,
         items: [Item],
-        phoneNumber: String,
-        visitor: String,
-        visitTime: String
+        customer: Customer
     ) {
         self.coordinator = coordinator
         self.store = store
         self.items = items
-        self.phoneNumber = phoneNumber
-        self.visitor = visitor
-        self.visitTime = visitTime
+        self.customer = customer
     }
 }
 

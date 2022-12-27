@@ -251,14 +251,14 @@ extension ReservationViewController: SetInfoDelegate, SetTimeDelegate, PersonalI
     func setUserInfo(name: String, PhoneNumber: String) {
         self.visitorView.phoneNumberLabel.text = PhoneNumber
         self.visitorView.visitorLabel.text = name
-        viewModel.visitor = name
-        viewModel.phoneNumber = PhoneNumber
+        viewModel.customer.vistor = name
+        viewModel.customer.phoneNumber = PhoneNumber
         reservationCompleteButton.isButtonSelected = viewModel.checkValidation()
     }
     
     func setCurrentTime(currentTime: String) {
         visitTimeView.timeLabel.text = currentTime
-        viewModel.visitTime = currentTime
+        viewModel.customer.visitTime = currentTime
         reservationCompleteButton.isButtonSelected = viewModel.checkValidation()
     }
 }
