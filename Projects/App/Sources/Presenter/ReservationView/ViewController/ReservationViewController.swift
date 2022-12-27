@@ -215,11 +215,8 @@ extension ReservationViewController {
         viewModel.addReservationToDB { result in
             switch result {
             case .success(_):
-                // TODO: 화면전환
                 self.viewModel.pushReservationCompletedView()
-                print("success")
             case .failure(let error):
-                // TODO: 화면 전환
                 print(error.localizedDescription)
             }
         }
