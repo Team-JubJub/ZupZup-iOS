@@ -20,7 +20,7 @@ protocol PopToRoot {
     func popToRootViewController()
 }
 
-final class HomeViewCoordinator: Coordinator {
+final class HomeCoordinator: Coordinator {
     
     var navigationController: UINavigationController
     
@@ -36,7 +36,7 @@ final class HomeViewCoordinator: Coordinator {
 }
 
 // MARK: StoreViewController로 전환
-extension HomeViewCoordinator: StoreViewCoordinating {
+extension HomeCoordinator: StoreViewCoordinating {
     func pushStoreViewController(store: Store) {
         let viewModel = StoreViewModel(
             coordinator: self,
@@ -48,7 +48,7 @@ extension HomeViewCoordinator: StoreViewCoordinating {
 }
 
 // MARK: ReservationViewController로 전환
-extension HomeViewCoordinator: ReservationViewCoordinating {
+extension HomeCoordinator: ReservationViewCoordinating {
     func pushReservationViewController(store: Store) {
         let viewModel = ReservationViewModel(coordinator: self, store: store)
         let viewController = ReservationViewController(viewModel: viewModel)
@@ -57,7 +57,7 @@ extension HomeViewCoordinator: ReservationViewCoordinating {
 }
 
 // MARK: SetInfoViewController Present
-extension HomeViewCoordinator: SetTimeViewCoordinating {
+extension HomeCoordinator: SetTimeViewCoordinating {
     func presentSetTimeView(parentVC: ReservationViewController) {
         let viewModel = SetTimeViewModel(coordinator: self)
         viewModel.delegate = parentVC
@@ -71,7 +71,7 @@ extension HomeViewCoordinator: SetTimeViewCoordinating {
     }
 }
 
-extension HomeViewCoordinator: SetInfoViewCoordinating {
+extension HomeCoordinator: SetInfoViewCoordinating {
     func presentSetInfoView(parentVC: ReservationViewController) {
         let viewModel = SetInfoViewModel(coordinator: self)
         viewModel.delegate = parentVC
@@ -85,7 +85,7 @@ extension HomeViewCoordinator: SetInfoViewCoordinating {
     }
 }
 
-extension HomeViewCoordinator: ReservationCompletedViewCoordinating {
+extension HomeCoordinator: ReservationCompletedViewCoordinating {
     
     func pushReservationCompletedViewController(
         store: Store,
@@ -103,7 +103,7 @@ extension HomeViewCoordinator: ReservationCompletedViewCoordinating {
     }
 }
 
-extension HomeViewCoordinator: PersonalInfoAgreeCoordinating {
+extension HomeCoordinator: PersonalInfoAgreeCoordinating {
     func presentPersonalInfoAgreeView(parentVC: ReservationViewController) {
         let viewModel = PersonalInfoAgreeViewModel(coordinator: self)
         viewModel.delegate = parentVC
@@ -116,19 +116,19 @@ extension HomeViewCoordinator: PersonalInfoAgreeCoordinating {
     }
 }
 
-extension HomeViewCoordinator: Popable {
+extension HomeCoordinator: Popable {
     func popViewController() {
         navigationController.popViewController(animated: true)
     }
 }
 
-extension HomeViewCoordinator: Dismissable {
+extension HomeCoordinator: Dismissable {
     func dismissViewController() {
         navigationController.dismiss(animated: true)
     }
 }
 
-extension HomeViewCoordinator: PopToRoot {
+extension HomeCoordinator: PopToRoot {
     func popToRootViewController() {
         navigationController.popToRootViewController(animated: true)
     }
