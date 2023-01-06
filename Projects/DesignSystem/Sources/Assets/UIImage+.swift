@@ -25,7 +25,6 @@ public extension UIImage {
         self.draw(in: CGRect(origin: CGPoint.zero, size: size))
         let resizedImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
-        print(resizedImage)
         return resizedImage
     }
 }

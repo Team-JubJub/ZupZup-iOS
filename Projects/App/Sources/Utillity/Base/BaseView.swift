@@ -19,7 +19,9 @@ class BaseView: UIView, CodeBased {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func setLayout() {}
+    func setLayout() {
+        
+    }
 
     func setAttribute() {}
 }

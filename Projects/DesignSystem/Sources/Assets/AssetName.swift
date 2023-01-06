@@ -15,4 +15,5 @@ public enum Asset: String {
     case ic_shoppingBag
     case mock_bread
     case emptyImage
+    case ic_shoppingCart
 }

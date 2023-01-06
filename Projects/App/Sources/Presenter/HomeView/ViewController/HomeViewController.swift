@@ -12,7 +12,7 @@ import DesignSystem
 import ZupZupNetwork
 
 
-class HomeViewController: BaseViewController {
+class HomeViewController: BaseRootViewController {
 
     private var viewModel: HomeViewModel
     
