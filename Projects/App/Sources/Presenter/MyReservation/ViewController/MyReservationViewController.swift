@@ -34,6 +34,10 @@ class MyReservationViewController: BaseRootViewController {
         super.viewDidLoad()
         setUI()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
 }
 
 extension MyReservationViewController {

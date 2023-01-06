@@ -22,7 +22,7 @@ struct MainCoordinatorConstants {
 
 final class MainCoordinator: Coordinator {
     var navigationController: UINavigationController
-    let tabBarController: UITabBarController
+    let tabBarController: TabBarViewController
     let tabBarItems: [TabBarItem] = [ .home, .myReservation ]
     
     func start() {
@@ -32,7 +32,8 @@ final class MainCoordinator: Coordinator {
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        self.tabBarController = UITabBarController()
+        self.tabBarController = TabBarViewController()
+        tabBarController.tabBar.frame = CGRect(x: 0, y: 0, width: DeviceInfo.screenWidth, height: 100)
     }
     
     enum TabBarItem: CaseIterable {
@@ -90,6 +91,8 @@ extension MainCoordinator {
     
     private func prepareTabBarController(with tabControllers: [UIViewController]) {
         tabBarController.setViewControllers(tabControllers, animated: false)
+        tabBarController.tabBar.tintColor = .designSystem(.orangeE49318)
         navigationController.viewControllers = [tabBarController]
     }
 }
+
