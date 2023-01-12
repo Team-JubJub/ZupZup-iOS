@@ -13,6 +13,8 @@ class MyReservationViewController: BaseRootViewController {
     
     private var viewModel: MyReservationViewModel
     
+    let titleLabel = ZupzupTitleLabel(title: "내 예약")
+    
     private let label: UILabel = {
         let label = UILabel()
         label.text = "내 예약 뷰"
