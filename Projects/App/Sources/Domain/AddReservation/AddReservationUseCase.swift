@@ -15,7 +15,7 @@ protocol AddReservationUseCase {
         customer: Customer,
         store: Store,
         items: [Item],
-        completion: @escaping (Result<Response,Error>) -> Void)
+        completion: @escaping (Result<Int, Error>) -> Void)
 }
 
 final class AddReservationUseCaseImpl: AddReservationUseCase {
@@ -31,7 +31,7 @@ final class AddReservationUseCaseImpl: AddReservationUseCase {
         customer: Customer,
         store: Store,
         items: [Item],
-        completion: @escaping (Result<Response,Error>) -> Void) {
+        completion: @escaping (Result<Int, Error>) -> Void) {
             
             let cartDTO = items.map { item in
                 return AddReservationDTO.CartDTO(
@@ -55,8 +55,8 @@ final class AddReservationUseCaseImpl: AddReservationUseCase {
             
             addReservationRepsitory.addReservation(addReservationDTO: reservationDTO) { result  in
                 switch result {
-                case .success(let response):
-                    completion(.success(response))
+                case .success(let time):
+                    completion(.success(time))
                 case .failure(let error):
                     completion(.failure(error))
                 }

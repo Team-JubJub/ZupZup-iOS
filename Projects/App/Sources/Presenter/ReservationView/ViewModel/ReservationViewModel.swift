@@ -60,13 +60,15 @@ extension ReservationViewModel {
         return !(customer.phoneNumber.isEmpty || customer.visitTime.isEmpty || !isChecked || customer.phoneNumber.isEmpty)
     }
     
-    func addReservationToDB(completion: @escaping (Result<Response, Error>) -> Void) {
+    func addReservationToDB() {
         addReservationUseCase.addReservation(customer: customer, store: store, items: items) { result in
             switch result {
-            case .success(let response):
-                completion(.success(response))
+            case .success(let time):
+                let shared = ReservationContainer.shared
+                shared.appendReservation(time: time)
+                self.pushReservationCompletedView()
             case .failure(let error):
-                completion(.failure(error))
+                print(error.localizedDescription)
             }
         }
     }

@@ -212,14 +212,7 @@ extension ReservationViewController {
     @objc
     func didReservationCompleteButtonTapped() {
         reservationCompleteButton.isButtonSelected.toggle()
-        viewModel.addReservationToDB { result in
-            switch result {
-            case .success(_):
-                self.viewModel.pushReservationCompletedView()
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+        viewModel.addReservationToDB()
     }
     
     @objc

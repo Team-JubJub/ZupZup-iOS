@@ -13,11 +13,7 @@ import FirebaseFirestoreSwift
 import RxSwift
 
 public protocol AddReservationRepository {
-    func addReservation(addReservationDTO: AddReservationDTO, completion: @escaping (Result<Response, Error>) -> Void)
-}
-
-public struct Response {
-    let message: String = "Success To Add Reservation"
+    func addReservation(addReservationDTO: AddReservationDTO, completion: @escaping (Result<Int, Error>) -> Void)
 }
 
 public class AddReservationRepsitoryImpl: AddReservationRepository {
@@ -26,7 +22,7 @@ public class AddReservationRepsitoryImpl: AddReservationRepository {
     
     let database = Firestore.firestore()
     
-    public func addReservation(addReservationDTO: AddReservationDTO ,completion: @escaping (Result<Response, Error>) -> Void) {
+    public func addReservation(addReservationDTO: AddReservationDTO ,completion: @escaping (Result<Int, Error>) -> Void) {
         
         let reservationRef = database.collection("Reservation")
         
@@ -45,7 +41,7 @@ public class AddReservationRepsitoryImpl: AddReservationRepository {
             completion(.failure(error))
         }
         
-        completion(.success(Response()))
+        completion(.success(timeMillis))
     }
 }
 
